@@ -1,6 +1,6 @@
 # WAD2016  --  Zombie: A Game of Search
 
-Authors:
+#### Authors:
  * Thomas Robertson
  * Matthew Biggins
  * Sean Macpherson 2143479M
