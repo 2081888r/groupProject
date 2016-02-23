@@ -5,7 +5,7 @@ Leif added [this](Design%20Requirements.pdf) pdf to moodle describing everything
 Design tasks to be completed and uploaded:
 
 * Sean:
-	* Two personas
+	* ~~Two personas~~
 	* List of specifications (ie. minimum requirements)
 * Dylan
 	* High-level system architecture
