@@ -1,6 +1,6 @@
 # Design Plan
 
-Leif added [this](`Design Requirements.pdf`) pdf to moodle describing everything.
+Leif added [this](Design%20Requirements.pdf) pdf to moodle describing everything.
 
 Design tasks to be completed and uploaded:
 
