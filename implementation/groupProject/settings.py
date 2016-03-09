@@ -80,4 +80,28 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
+#STATIC FILES: CSS, JS etc
+STATIC_PATH = os.path.join(BASE_DIR,'static')
 STATIC_URL = '/static/'
+STATICFILES_DIRS = ( STATIC_PATH, )
+
+#TEMPLATES
+PROJECT_PATH = os.path.dirname(os.path.abspath(__file__))
+TEMPLATE_PATH = os.path.join(BASE_DIR, 'templates')
+TEMPLATE_DIRS = [ TEMPLATE_PATH, ]
+
+#MEDIA UPLOADS
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media') # Absolute path to the media directory
+USER_IMAGE_PATH = '/media/profile_images/'
+
+
+#REGISTRATION SETTINGS
+REGISTRATION_OPEN = True                # If True, users can register
+ACCOUNT_ACTIVATION_DAYS = 7     # One-week activation window; you may, of course, use a different value.
+REGISTRATION_AUTO_LOGIN = True  # If True, the user will be automatically logged in.
+LOGIN_REDIRECT_URL = '/zombie/'  # The page you want users to arrive at after they successful log in
+LOGIN_URL = '/accounts/login/'  # The page users are directed to if they are not logged in,
+# and are trying to access pages requiring authentication
+
+AUTH_PROFILE_MODULE = "accounts.UserProfile"
