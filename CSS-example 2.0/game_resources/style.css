@@ -1,0 +1,176 @@
+#content_area{
+    border-width: 0px;
+}
+
+#top_panel{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    height: 75px;
+    border-style: solid;
+    border-width: 2px 2px 2px 2px;
+}
+
+#bottom_panel{
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    height: 50px;
+    border-style: solid;
+    border-width: 2px 2px 2px 2px;
+}
+
+#main{
+    position: absolute;
+    top: 79px;
+    left: 0px;
+    right: 0px;
+    height: 475px;
+    
+    border-style: solid;
+    border-width: 0px 2px 0px 2px;
+}
+
+#left_panel_tag{
+    position: absolute;
+    left: 0px;
+    top: 279.5;
+    width: 62px;
+    height:72px;
+    
+    background-color: white;
+    
+    transition: left 0.75s linear;
+    
+    border-style: solid;
+    border-width: 2px 2px 2px 0px;
+    border-radius: 0px 10px 10px 0px;
+}
+
+#left_panel_party_icon{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 35px;
+    height: 35px;
+    
+    border-style: solid;
+    border-width: 0px 0px 2px 0px;
+}
+
+#left_panel_log_icon{
+    position: absolute;
+    top: 35px;
+    left: 0px;
+    width: 35px;
+    height: 35px;
+    
+    border-style: solid;    
+    border-width: 0px 0px 0px 0px;
+}
+
+#left_panel_arrow_icon{
+    position: absolute;
+    top: 0px;
+    left: 35px;
+    width: 35px;
+    height: 72px;
+    
+    border-style: solid;    
+    border-width: 0px 0px 0px 2px;
+}
+
+#left_panel_arrow_image{
+    transition: transform 0.5s;
+}
+
+#left_panel{
+    position: absolute;
+    left: 0px;
+    top: 79px;
+    width: 0px; /*200px when open*/
+    height: 475px;
+    
+    transition: width 0.75s linear;
+    overflow: hidden;
+    
+    border-style: solid;
+    border-width: 0px 2px 0px 0px;
+}
+
+#left_panel_party{
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    bottom: 50%;
+    width: 100%;
+    
+    background-color: white;
+}
+
+#left_panel_log{
+    position: absolute;
+    left: 0px;
+    top: 50%;
+    bottom: 0px;
+    width: 100%;
+    
+    background-color: white;
+    
+    border-style: solid;
+    border-width: 0px;
+    border-top-width: 2px;
+}
+
+#top_panel_ammo{
+    position: relative;
+    float: left;
+    width: 25%;
+    top: 50%;
+    margin-top: -25px;
+    text-align: center;
+}
+#top_panel_food{
+    position: relative;
+    float: left;
+    width: 25%;
+    top: 50%;
+    margin-top: -25px;
+    text-align: center;
+}
+#top_panel_party{
+    position: relative;
+    float: left;
+    width: 25%;
+    top: 50%;
+    margin-top: -25px;
+    text-align: center;
+}
+#top_panel_time{
+    position: relative;
+    float: left;
+    width: 25%;
+    top: 50%;
+    margin-top: -12px;
+    text-align: center;
+}
+
+#bottom_panel_content{
+    position: relative;
+    width: 100%;
+    top:50%;
+    margin-top: -12px;
+    text-align: center;
+}
+
+#left_panel_party_table{
+    width: 200px;
+    white-space: nowrap;
+}
+
+#left_panel_log_table{
+    width: 200px;
+    white-space: nowrap;
+}
