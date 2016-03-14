@@ -1,0 +1,11 @@
+Don't worry about keeping the buttons in place, I'll redo the image maps later.
+    Also try to centre the buttons, mine aren't at all centred.
+
+Add in a consistently placed back button and options menu button.
+
+Make sure the images are either the same resolution, or an integer multiple of that resolution (2x, 3x, etc.)
+
+A lot of stuff needs to be rendered using html/css because it contains generated content (like the user's name and stuff) so there aren't images for them
+
+Feel free to add images where there are none. We can have images in the background of pages as well.
+    eg. the profile page has no images (other than user-images and ones it steals from badges)
