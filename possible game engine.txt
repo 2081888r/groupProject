@@ -1,0 +1,12 @@
+A few musings on things. should really only be done once we get a working app.
+
+user records most and total(kills, days, searches, fight, and retreats), as well as savestate
+
+party members get a generated name(maybe a list of 100 fore and surnames), and for both stats a random number from 1-5
+party should also keep a reference of it's size, and the total accuracy and speed in it.
+
+change the win alg to  25% +50%(if ammo) +1%(per acc point) -1%(per zombie) -2%(per zombie over party size) -5%(per party size over ammo)
+
+run 50% +1%(per speed)-2%(per party size) -1%(per zombie)
+
+badges unlock at certain thresholds.
