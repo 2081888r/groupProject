@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponse
@@ -19,7 +19,7 @@ def getUser(request, username):
 
 def index(request):
     if(request.user.is_authenticated()):
-        return render(request,'zombie/main.html', {})
+        return render(request,'zombie/main.html', {'username':request.user.username})
     else:
         return render(request,'zombie/index.html', {})
 
@@ -42,7 +42,7 @@ def user_login(request):
             print "Invalid login details: {0}, {1}".format(username, password)
             return HttpResponse("Invalid login details supplied.")
     else:
-        return render(request,'zombie/index.html', {})
+        return redirect("/zombie/")
     
 @login_required
 def user_logout(request):
@@ -122,7 +122,6 @@ def profile_update(request):
         profile_form = UserProfileForm()
     
     return render(request,"profiles/profile_update.html", {'profile_form': profile_form, 'user_name': request.user})
-    
     
 def error_page(request):
     return render(request, 'zombie/404.html')
