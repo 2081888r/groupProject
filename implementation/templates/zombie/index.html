@@ -1,11 +1,43 @@
-{% extends 'base.html' %}
+<!DOCTYPE html>
 
 {% load staticfiles %}
 
-{% block title %}Homepage{% endblock %}
-
-{% block body_block %}
-
-   
-
-{% endblock %}
+<html>
+    <head>
+        <title>CSS Example 2.0</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/common_style.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'css/index_style.css' %}" />
+    </head>
+    <body>
+        <div id="content_area">
+            <img width=800 height=600 src="{% static 'img/index_screen.png' %}" usemap="#screen_map" />
+            <map id="screen_map">
+                <area shape="rect" coords="217, 459, 302, 497" href="javascript:void();" onclick="openLogInPopUp()"/>
+                <area shape="rect" coords="386, 461, 566, 499" href="main.html" />
+            </map>
+            <div id="grey_overlay"0> </div>
+            <div id="log_in_pop_up">
+                <form action="/zombie/login/" method="POST">
+                    {% csrf_token %}
+                    <table id="log_in_pop_up_fields_table">
+                        <tr>
+                            <td>Username:</td>
+                            <td><input type="text" id="log_in_pop_up_username_textbox" name="username"/></td>
+                        </tr>
+                        <tr>
+                            <td>Password:</td>
+                            <td><input type="password" id="log_in_pop_up_password_textbox" name="password"/></td>
+                        </tr>
+                    </table>
+                    <table id="log_in_pop_up_buttons_table">
+                        <tr>
+                            <td><input type="image" width=70 height=30 src="{% static 'img/index._log_in.png' %}" /></td>
+                            <td><a href="#" onclick="closeLogInPopUp()"><img width=70 height=30 src="{% static 'img/index_cancel.png' %}" /></a></td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+        <script src="{% static 'js/index_script.js' %}"></script>
+    </body>
+</html>

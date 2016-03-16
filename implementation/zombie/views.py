@@ -18,7 +18,10 @@ def getUser(request, username):
 # Create your views here.
 
 def index(request):
-    return render(request,'zombie/index.html', {})
+    if(request.user.is_authenticated()):
+        return render(request,'zombie/main.html', {})
+    else:
+        return render(request,'zombie/index.html', {})
 
 
 def user_login(request):
@@ -39,7 +42,7 @@ def user_login(request):
             print "Invalid login details: {0}, {1}".format(username, password)
             return HttpResponse("Invalid login details supplied.")
     else:
-        return render(request,'registration/login.html', {})
+        return render(request,'zombie/index.html', {})
     
 @login_required
 def user_logout(request):
