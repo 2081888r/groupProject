@@ -20,7 +20,7 @@ def index(request):
     if(request.user.is_authenticated()):
         return render(request,'zombie/main.html', {'username':request.user.username})
     else:
-        return render(request,'zombie/index.html', {'user_form':UserForm(data=request.POST)})
+        return render(request,'zombie/index.html', {})
 
 
 def user_login(request):
@@ -49,21 +49,24 @@ def user_logout(request):
 def register(request):
     if request.method == 'POST':
         any_errors = False #true if any error occured
-        errors = [False, False, False] #lists errors (username_taken, email_invalid, passwords_mismatch)
+        errors = [False, False, False, False] #lists errors (username_taken, username_invalid, email_invalid, passwords_mismatch)
         
         username = request.POST.get('username')
         email = request.POST.get('email')
         password1 = request.POST.get('password1')
         password2 = request.POST.get('password2')
         
-        if(User.objects.filter(username=username).exists()):
+        if(User.objects.filter(username=username).exists()): #if username is taken
             errors[0] = True
             any_errors = True
-        #if(!re.compile(r'.*@.*\..*').match(email)): #if email is invalid
-        #    errors[1] = True
-        #    any_errors = True
-        if(password1 != password2): #if passwords don't match
+        if(not re.compile(r'^[a-z0-9]+$').match(username)): #if username does not contain only lowercase letters and numbers
+            errors[1] = True
+            any_errors = True;
+        if(not re.compile(r'^[a-zA-Z0-9\!\#\$\%\&\'\*\+\-\/\=\?\^\_\`\{\|\}\~\.]+@[a-zA-Z\-\.]+\.[a-zA-Z\-\.]+$').match(email)): #if email is invalid (see https://en.wikipedia.org/wiki/Email_address#Syntax)
             errors[2] = True
+            any_errors = True
+        if(password1 != password2): #if passwords don't match
+            errors[3] = True
             any_errors = True
         
         if(any_errors):
@@ -71,9 +74,9 @@ def register(request):
         else:
             user = User.objects.create_user(username)
             user.email = email
-            user.password = password1
+            user.set_password(password1)
             user.save();
-            return render(request,'zombie/main.html', {'username':request.user.username})
+            return render(request,'zombie/index.html', {})
     else:
         return redirect("/zombie/")
 #    registered = False

@@ -15,9 +15,12 @@
                     str += "Username all ready in use.\n";
                 {% endif %}
                 {% if errors.1 %}
+                    str += "Username must contain only lowercase letters, and numbers.\n";
+                {% endif %}
+                {% if errors.2%}
                     str += "Email invalid.\n";
                 {% endif %}
-                {% if errors.2 %}
+                {% if errors.3 %}
                     str += "Passwords did not match.\n";
                 {% endif %}
                 alert(str);
