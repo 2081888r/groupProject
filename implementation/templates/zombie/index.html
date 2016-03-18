@@ -7,6 +7,26 @@
         <title>CSS Example 2.0</title>
         <link rel="stylesheet" type="text/css" href="{% static 'css/common_style.css' %}" />
         <link rel="stylesheet" type="text/css" href="{% static 'css/index_style.css' %}" />
+        
+        <script>
+            {% if registration_errors %}
+                str = "Error creating account:\n";
+                {% if errors.0 %}
+                    str += "Username all ready in use.\n";
+                {% endif %}
+                {% if errors.1 %}
+                    str += "Email invalid.\n";
+                {% endif %}
+                {% if errors.2 %}
+                    str += "Passwords did not match.\n";
+                {% endif %}
+                alert(str);
+            {% endif %}
+            {% if login_errors %}
+                alert("Invalid login details. Please try again.");
+            {% endif %}
+        </script>
+
     </head>
     <body>
         <div id="content_area">

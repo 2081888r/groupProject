@@ -5,17 +5,16 @@ from django.http import HttpResponseRedirect, HttpResponse
 from zombie.forms import UserForm, UserProfileForm
 from django.contrib.auth.models import User
 from zombie.models import UserProfile
+import re;
 
-#Extra/helper functions here!
+#Extra/helper functions here
 
 def getUser(request, username):
     user = User.objects.get(username = username)
    
     return 
 
-
-
-# Create your views here.
+#Create your views here.
 
 def index(request):
     if(request.user.is_authenticated()):
@@ -38,9 +37,7 @@ def user_login(request):
             else:
                 return HttpResponse("Your Zombie account is disabled.")
         else:
-            # Bad login details were provided. So we can't log the user in.
-            print "Invalid login details: {0}, {1}".format(username, password)
-            return HttpResponse("Invalid login details supplied.")
+            return render(request, 'zombie/index.html', {'login_errors':True});
     else:
         return redirect("/zombie/")
     
@@ -51,19 +48,32 @@ def user_logout(request):
 
 def register(request):
     if request.method == 'POST':
+        any_errors = False #true if any error occured
+        errors = [False, False, False] #lists errors (username_taken, email_invalid, passwords_mismatch)
+        
         username = request.POST.get('username')
         email = request.POST.get('email')
         password1 = request.POST.get('password1')
         password2 = request.POST.get('password2')
         
-        if(password1 != password2):
-            return redirect("/zombie/")
+        if(User.objects.filter(username=username).exists()):
+            errors[0] = True
+            any_errors = True
+        #if(!re.compile(r'.*@.*\..*').match(email)): #if email is invalid
+        #    errors[1] = True
+        #    any_errors = True
+        if(password1 != password2): #if passwords don't match
+            errors[2] = True
+            any_errors = True
         
-        user = User.objects.create_user(username)
-        user.email = email
-        user.password = password1
-        user.save();
-        return render(request,'zombie/main.html', {'username':request.user.username})
+        if(any_errors):
+            return render(request, 'zombie/index.html', {'errors':errors, 'registration_errors':any_errors});
+        else:
+            user = User.objects.create_user(username)
+            user.email = email
+            user.password = password1
+            user.save();
+            return render(request,'zombie/main.html', {'username':request.user.username})
     else:
         return redirect("/zombie/")
 #    registered = False
