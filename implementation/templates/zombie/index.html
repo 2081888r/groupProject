@@ -25,6 +25,9 @@
                 {% endif %}
                 alert(str);
             {% endif %}
+            {% if registration_successful %}
+                alert("Successfully registered.");
+            {% endif %}
             {% if login_errors %}
                 alert("Invalid login details. Please try again.");
             {% endif %}
