@@ -1,11 +1,7 @@
 from django.contrib import admin
 
 from zombie.models import UserProfile
-
-class UserProfileAdmin(admin.ModelAdmin):
-    list_display = ( 'full_name', 'avatar')
-
-class Admin(admin.ModelAdmin):
-    list_display = ( 'ID', 'name')
+from zombie.models import Score
 
 admin.site.register(UserProfile)
+admin.site.register(Score)

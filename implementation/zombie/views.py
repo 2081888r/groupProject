@@ -76,56 +76,21 @@ def register(request):
             user.email = email
             user.set_password(password1)
             user.save();
-            return render(request,'zombie/index.html', {})
+            return render(request,'zombie/index.html', {'registration_successful':True})
     else:
         return redirect("/zombie/")
-#    registered = False
-#
-#    if request.method == 'POST':
-#        user_form = UserForm(data=request.POST)
-#
-#        if user_form.is_valid():
-#            user = user_form.save()
-#            user.set_password(user.password)
-#            user.save()
-#            registered = True
-#        else:
-#            print user_form.errors
-#
-#    else:
-#        user_form = UserForm()
-#
-#    return render(request, 'registration/registration_form.html', {'user_form': user_form, 'registered': registered})
-    
-@login_required
-def register_profile(request):
-    if request.method == 'POST':
-        profile_form = UserProfileForm(request.POST, request.FILES) #get the data and the files from the form
-        
-        if profile_form.is_valid():
-            profile = profile_form.save(commit=False)
-            profile.user = request.user     #get the user we want to update the profile
-            profile.save()  #save the profile
-            return HttpResponseRedirect('/zombie/')  #redirect to the homepage
-        else:
-            print profile_form.errors   
-    else:
-        profile_form = UserProfileForm()
-    
-    return render(request,"profiles/profile_update.html", {'profile_form': profile_form, 'user_name': request.user})
-
 
 def profile(request, username):
     try:
         user = User.objects.get(username = username)
-        profile = UserProfile.objects.get(user_id = user.id)
-        return render(request,"profiles/profile.html", {'player': user, 'profile': profile})
+        #get all the context_dict stuff
+        return render(request, 'zombie/profile.html', {})
     except User.DoesNotExist as u:
         print '%s (%s)' % (u.message, type(u))
-        return HttpResponseRedirect('/zombie/404/')  #if user doesn't exist
+        return render(request, 'zombie/404.html', {}) #if user doesn't exist
     except Exception as e:
         print '%s (%s)' % (e.message, type(e))
-        return HttpResponseRedirect('/zombie/404/')  #catch all the exceptions
+        return render(request, 'zombie/404.html', {}) #catch all the exceptions
     
 @login_required
 def profile_update(request):
@@ -151,6 +116,3 @@ def profile_update(request):
         profile_form = UserProfileForm()
     
     return render(request,"profiles/profile_update.html", {'profile_form': profile_form, 'user_name': request.user})
-    
-def error_page(request):
-    return render(request, 'zombie/404.html')
