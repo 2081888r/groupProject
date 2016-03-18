@@ -21,7 +21,7 @@ def index(request):
     if(request.user.is_authenticated()):
         return render(request,'zombie/main.html', {'username':request.user.username})
     else:
-        return render(request,'zombie/index.html', {})
+        return render(request,'zombie/index.html', {'user_form':UserForm(data=request.POST)})
 
 
 def user_login(request):
@@ -50,23 +50,39 @@ def user_logout(request):
     return HttpResponseRedirect('/zombie/')
 
 def register(request):
-    registered = False
-
     if request.method == 'POST':
-        user_form = UserForm(data=request.POST)
-
-        if user_form.is_valid():
-            user = user_form.save()
-            user.set_password(user.password)
-            user.save()
-            registered = True
-        else:
-            print user_form.errors
-
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+        password1 = request.POST.get('password1')
+        password2 = request.POST.get('password2')
+        
+        if(password1 != password2):
+            return redirect("/zombie/")
+        
+        user = User.objects.create_user(username)
+        user.email = email
+        user.password = password1
+        user.save();
+        return render(request,'zombie/main.html', {'username':request.user.username})
     else:
-        user_form = UserForm()
-
-    return render(request, 'registration/registration_form.html', {'user_form': user_form, 'registered': registered} )
+        return redirect("/zombie/")
+#    registered = False
+#
+#    if request.method == 'POST':
+#        user_form = UserForm(data=request.POST)
+#
+#        if user_form.is_valid():
+#            user = user_form.save()
+#            user.set_password(user.password)
+#            user.save()
+#            registered = True
+#        else:
+#            print user_form.errors
+#
+#    else:
+#        user_form = UserForm()
+#
+#    return render(request, 'registration/registration_form.html', {'user_form': user_form, 'registered': registered})
     
 @login_required
 def register_profile(request):

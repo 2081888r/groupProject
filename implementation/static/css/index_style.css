@@ -17,7 +17,7 @@
     position: absolute;
 
     top: 50%;
-    left:50%;
+    left: 50%;
     height: 100px;
     width: 400px;
     margin-top: -62px;
@@ -25,6 +25,29 @@
     
     padding-top: 10px;
 
+    border-style: solid;
+    border-width: 2px;
+    
+    font-size: 18px;
+    
+    background-color: white;
+    
+    transform: scale(0, 0);
+    
+    transition: transform 0.4s linear;
+}
+
+#register_pop_up{
+    visibility: hidden;
+    position: absolute;
+    
+    top: 50%;
+    left: 50%;
+    height: 200px;
+    width: 400px;
+    margin-top: -100px;
+    margin-left: -200px;
+    
     border-style: solid;
     border-width: 2px;
     
@@ -50,6 +73,37 @@
 }
 
 #log_in_pop_up_buttons_table{
+    text-align: center;
+    width: 100%;
+}
+
+#register_pop_up_title{
+    font-size: 24px;
+    text-align: center;
+    width: 100%;
+    padding: 10px 0px 15px 0px;
+}
+#register_pop_up_fields_table{
+    width: 100%;
+}
+#register_pop_up_username_textbox{
+    width: 98%;
+    height: 18px;
+}
+#register_pop_up_email_textbox{
+    width: 98%;
+    height: 18px;
+}
+#register_pop_up_password1_textbox{
+    width: 98%;
+    height: 18px;
+}
+#register_pop_up_password2_textbox{
+    width: 98%;
+    height: 18px;
+}
+#register_pop_up_buttons_table{
+    padding-top: 3px;
     text-align: center;
     width: 100%;
 }

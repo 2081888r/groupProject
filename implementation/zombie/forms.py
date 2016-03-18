@@ -13,8 +13,7 @@ class UserForm(forms.ModelForm):
 
 class UserProfileForm(forms.ModelForm):
     avatar = forms.ImageField(required = False)
-    full_name = forms.CharField(required = False)
     class Meta:
         model = UserProfile
-        fields = ('full_name', 'avatar')
+        fields = ('avatar',)
         

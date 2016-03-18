@@ -15,7 +15,7 @@
                 <area shape="rect" coords="217, 459, 302, 497" href="javascript:void();" onclick="openLogInPopUp()"/>
                 <area shape="rect" coords="386, 461, 566, 499" href="main.html" />
             </map>
-            <div id="grey_overlay"0> </div>
+            <div id="grey_overlay" onclick="closePopUp();"></div>
             <div id="log_in_pop_up">
                 <form action="/zombie/login/" method="POST">
                     {% csrf_token %}
@@ -31,8 +31,39 @@
                     </table>
                     <table id="log_in_pop_up_buttons_table">
                         <tr>
-                            <td><input type="image" width=70 height=30 src="{% static 'img/index._log_in.png' %}" /></td>
+                            <td><input type="image" width=70 height=30 src="{% static 'img/index_log_in.png' %}" /></td>
                             <td><a href="#" onclick="closeLogInPopUp()"><img width=70 height=30 src="{% static 'img/index_cancel.png' %}" /></a></td>
+                            <td><a href="#" onclick="switchToRegisterPopUp()"><img width=91 height=30 src="{% static 'img/index_register.png' %}" /></a></td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+            <div id="register_pop_up">
+                <form method="post" action="/zombie/register/">
+                    {% csrf_token %}
+                    <div id="register_pop_up_title">Please Enter Your Details:</div>
+                    <table id="register_pop_up_fields_table">
+                        <tr>
+                            <td>Username:</td>
+                            <td><input type="text" id="register_pop_up_username_textbox" name="username" /></td>
+                        </tr>
+                        <tr>
+                            <td>Email:</td>
+                            <td><input type="text" id="register_pop_up_email_textbox" name="email" /></td>
+                        </tr>
+                        <tr>
+                            <td>Password:</td>
+                            <td><input type="password" id="register_pop_up_password1_textbox" name="password1" /></td>
+                        </tr>
+                        <tr>
+                            <td>Password Again:</td>
+                            <td><input type="password" id="register_pop_up_password2_textbox" name="password2"/></td>
+                        </tr>
+                    </table>
+                    <table id="register_pop_up_buttons_table">
+                        <tr>
+                            <td><input type="image" width=91 height=30 src="{% static 'img/index_register.png' %}" /></td>
+                            <td><a href="#" onclick="closeRegisterPopUp()"><img width=70 height=30 src="{% static 'img/index_cancel.png' %}" /></a></td>
                         </tr>
                     </table>
                 </form>
