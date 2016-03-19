@@ -52,6 +52,8 @@ def register(request):
         errors = [False, False, False, False] #lists errors (username_taken, username_invalid, email_invalid, passwords_mismatch)
         
         username = request.POST.get('username')
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
         email = request.POST.get('email')
         password1 = request.POST.get('password1')
         password2 = request.POST.get('password2')
@@ -73,9 +75,14 @@ def register(request):
             return render(request, 'zombie/index.html', {'errors':errors, 'registration_errors':any_errors});
         else:
             user = User.objects.create_user(username)
+            user.first_name = first_name
+            user.last_name = last_name
             user.email = email
             user.set_password(password1)
             user.save();
+            
+            user_profile = UserProfile.objects.create(user=user)
+            user_profile.save();
             return render(request,'zombie/index.html', {'registration_successful':True})
     else:
         return redirect("/zombie/")
