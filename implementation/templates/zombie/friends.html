@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+
+{% load staticfiles %}
+
+<html>
+    <head>
+        <title>{{ first_name }} {{ last_name }}'s Friends</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/common_style.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'css/friends_style.css' %}" />
+    </head>
+    <body>
+        <div id="content_area">
+            <div id="title_div">
+                <span>{{ first_name }} {{ last_name }}'s Friends</span>
+            </div>
+            <div id="friends_list_div">
+                {% for friend in friends %}
+                    <div class="friend_div">
+                        <a href="/zombie/profile/{{ friend.user.username }}/"><img src="{% if friend.avatar %} {{ friend.avatar.url }} {% else %} {% static 'img/blank_profile_picture.png' %} {% endif %}" width=90 height=90 /></a> <br />
+                        {{ friend.user.first_name }} {{ friend.user.last_name }}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <script type="text/javascript" src="{% static 'js/friends_script.js' %}"></script>
+    </body>
+</html>

@@ -123,6 +123,23 @@ def profile(request, username):
         print '%s (%s)' % (u.message, type(u))
         return redirect("/zombie/404/")
 
+def friends(request, username):
+    try:
+        user = User.objects.get(username = username)
+        user_profile = UserProfile.objects.get(user=user)
+        
+        context_dict = {
+            'username':user.username,
+            'first_name':user.first_name,
+            'last_name':user.last_name,
+            'friends':user_profile.friends.all()
+        }
+        
+        return render(request, 'zombie/friends.html', context_dict)
+    except User.DoesNotExist as u:
+        print '%s (%s)' % (u.message, type(u))
+        return redirect("/zombie/404/")
+
 def badges(request, username):
     try:
         user = User.objects.get(username = username)

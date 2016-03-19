@@ -19,7 +19,7 @@
             <div id="friends_div">
                 <div style="margin: 10px 0px 0px 10px;">
                     <span style="font-size: 24px;">Friends</span>
-                    <a href="#" onclick="alert('link to friends page');" >see all</a>
+                    <a href="/zombie/profile/{{ username }}/friends" >see all</a>
                 </div>
                 {% if friends.0 != null %}
                     <div id="friend_div_1" class="friend_divs">
@@ -109,7 +109,6 @@
             <div id="scores_div">
                 <div style="margin: 5px 0px 0px 5px;">
                     <span style="font-size: 24px;">Top Scores</span>
-                    <a href="#" onclick="alert('link to score page');" >see all</a>
                 </div>
                 <table id="leaderboard_table">
                     <tr>

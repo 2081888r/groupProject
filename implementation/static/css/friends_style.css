@@ -1,0 +1,55 @@
+#title_div{
+    position: absolute;
+    
+    top: 0px;
+    left: 0px;
+    
+    height: 30%;
+    width: 100%;
+    
+    text-align: center;
+    line-height: 120px;
+    
+    font-size: 52px;
+}
+#title_div span{
+    display: inline-block;
+    vertical-align: middle;
+    line-height: normal;
+}
+#friends_list_div{
+    position: absolute;
+    
+    margin: 50px;
+    
+    top: 20%;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    
+    overflow-y: auto;
+    
+    background-color: white;
+}
+.friend_div{
+    position: absolute;
+    
+    width: 90px;
+    height: 90px;
+    
+    margin: -45px 0px 0px -45px;
+    
+    text-align: center;
+}
+.friend_div:nth-child(4n+1){
+    left: 15.4% /* (2/13) */
+}
+.friend_div:nth-child(4n+2){
+    left: 38.5% /* (2/13)+(3/13) */
+}
+.friend_div:nth-child(4n+3){
+    left: 61.5% /* (2/13)+2(3/13) */
+}
+.friend_div:nth-child(4n){
+    left: 84.6% /* (2/13)+3(3/13) */
+}
