@@ -14,42 +14,96 @@
                 <span>{{ first_name }} {{ last_name }}</span>
             </div>
             <div id="profile_image_div">
-                <img src="" width=180 height=180 />
+                <img src="{% if user_avatar %}{{ user_avatar.url }}{% else %}{% static 'img/blank_profile_picture.png' %}{% endif %}" width=180 height=180 />
             </div>
             <div id="friends_div">
                 <div style="margin: 10px 0px 0px 10px;">
                     <span style="font-size: 24px;">Friends</span>
                     <a href="#" onclick="alert('link to friends page');" >see all</a>
                 </div>
-                <div id="friend_div_1" class="friend_divs">
-                    <img src="profile_resources/profile_image_2.png" width=90 height=90 /> <br />
-                    Nic Cage
-                </div>
-                <div id="friend_div_2" class="friend_divs">
-                    <img src="profile_resources/profile_image_3.png" width=90 height=90 /> <br />
-                    Nicky McCage
-                </div>
-                <div id="friend_div_3" class="friend_divs">
-                    <img src="profile_resources/profile_image_4.png" width=90 height=90 /> <br />
-                    Shrekolas Cage
-                </div>
+                {% if friends.0 != null %}
+                    <div id="friend_div_1" class="friend_divs">
+                        <a href="/zombie/profile/{{friends.0.user.username}}/"><img src="{% if friends.0.avatar %} {{ friends.0.avatar.url }} {% else %} {% static 'img/blank_profile_picture.png' %} {% endif %}" width=90 height=90 /></a>
+                        {{ friends.0.user.first_name }} {{ friends.0.user.last_name }}
+                    </div>
+                {% endif %}
+                {% if friends.1 != null %}
+                    <div id="friend_div_2" class="friend_divs">
+                        <a href="/zombie/profile/{{friends.1.user.username}}/"><img src="{% if friends.1.avatar %} {{ friends.1.avatar.url }} {% else %} {% static 'img/blank_profile_picture.png' %} {% endif %}" width=90 height=90 /></a>
+                        {{ friends.1.user.first_name }} {{ friends.1.user.last_name }}
+                    </div>
+                {% endif %}
+                {% if friends.2 != null %}
+                    <div id="friend_div_3" class="friend_divs">
+                        <a href="/zombie/profile/{{friends.2.user.username}}/"><img src="{% if friends.2.avatar %} {{ friends.2.avatar.url }} {% else %} {% static 'img/blank_profile_picture.png' %} {% endif %}" width=90 height=90 /></a>
+                        {{ friends.2.user.first_name }} {{ friends.2.user.last_name }}
+                    </div>
+                {% endif %}
+                {% if friends.3 != null %}
+                    <div id="friend_div_4" class="friend_divs">
+                        <a href="/zombie/profile/{{friends.3.user.username}}/"><img src="{% if friends.3.avatar %} {{ friends.3.avatar.url }} {% else %} {% static 'img/blank_profile_picture.png' %} {% endif %}" width=90 height=90 /></a>
+                        {{ friends.3.user.first_name }} {{ friends.3.user.last_name }}
+                    </div>
+                {% endif %}
             </div>
             <div id="badges_div">
                 <div style="margin: 10px 0px 0px 10px;">
                     <span style="font-size: 24px;">Badges Unlocked</span>
-                    <a href="#" onclick="alert('link to badges page');" >see all</a>
+                    <a href="/zombie/profile/{{ username }}/badges" >see all</a>
                 </div>
                 <div id="badge_div_1" class="badge_divs">
-                    <img src="profile_resources/badge_icon_survivor.png" width=70 height=70 /> <br />
-                    Survivor
+                    {% if killer_badge_unlocked %}
+                        <img src="{% static 'img/badge_icon_killer.png' %}" width=70 height=70 /> <br />
+                        Killer
+                    {% else %}
+                        <img src="{% static 'img/badge_icon_locked.png' %}" width=70 height=70 /> <br />
+                        Locked
+                    {% endif %}
                 </div>
                 <div id="badge_div_2" class="badge_divs">
-                    <img src="profile_resources/badge_icon_gatherer.png" width=70 height=70 /> <br />
-                    Gatherer
+                    {% if survivor_badge_unlocked %}
+                        <img src="{% static 'img/badge_icon_survivor.png' %}" width=70 height=70 /> <br />
+                        Survivor
+                    {% else %}
+                        <img src="{% static 'img/badge_icon_locked.png' %}" width=70 height=70 /> <br />
+                        Locked
+                    {% endif %}
                 </div>
                 <div id="badge_div_3" class="badge_divs">
-                    <img src="profile_resources/badge_icon_people_person.png" width=70 height=70 /> <br />
-                    People Person
+                    {% if gatherer_badge_unlocked %}
+                        <img src="{% static 'img/badge_icon_gatherer.png' %}" width=70 height=70 /> <br />
+                        Gatherer
+                    {% else %}
+                        <img src="{% static 'img/badge_icon_locked.png' %}" width=70 height=70 /> <br />
+                        Locked
+                    {% endif %}
+                </div>
+                <div id="badge_div_4" class="badge_divs">
+                    {% if people_person_badge_unlocked %}
+                        <img src="{% static 'img/badge_icon_people_person.png' %}" width=70 height=70 /> <br />
+                        People Person
+                    {% else %}
+                        <img src="{% static 'img/badge_icon_locked.png' %}" width=70 height=70 /> <br />
+                        Locked
+                    {% endif %}
+                </div>
+                <div id="badge_div_5" class="badge_divs">
+                    {% if explorer_badge_unlocked %}
+                        <img src="{% static 'img/badge_icon_explorer.png' %}" width=70 height=70 /> <br />
+                        Explorer
+                    {% else %}
+                        <img src="{% static 'img/badge_icon_locked.png' %}" width=70 height=70 /> <br />
+                        Locked
+                    {% endif %}
+                </div>
+                <div id="badge_div_6" class="badge_divs">
+                    {% if noob_badge_unlocked %}
+                        <img src="{% static 'img/badge_icon_noob.png' %}" width=70 height=70 /> <br />
+                        Noob
+                    {% else %}
+                        <img src="{% static 'img/badge_icon_locked.png' %}" width=70 height=70 /> <br />
+                        Locked
+                    {% endif %}
                 </div>
             </div>
             <div id="scores_div">
@@ -62,50 +116,75 @@
                         <th>
                             User
                         </th>
-                        <th>
+                        <th {% if scores_sorted_by != 'days_survived' %} onmouseover="showTableSortButton1()" onmouseout="hideTableSortButton1()" {% endif %} >
                             Days Survived
                             <div class="sort_button_div">
-                                <img id="table_sort_button_1" src="profile_resources/table_sort_button.png" width=15 height=15 />
+                                <form action="/zombie/profile/{{ username }}/" method="post">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="sort_by" value="days_survived" />
+                                    <input type="image" id="table_sort_button_1" src="{% static 'img/table_sort_button.png' %}" width=15 height=15 />
+                                </form>
                             </div>
                         </th>
-                        <th onmouseover="showTableSortButton2()" onmouseout="hideTableSortButton2()">
+                        <th {% if scores_sorted_by != 'zombie_kills' %} onmouseover="showTableSortButton2()" onmouseout="hideTableSortButton2()" {% endif %} >
                             Zombie Kills
                             <div class="sort_button_div">
-                                <a href="#" onclick="alert('sort by kills');">
-                                    <img id="table_sort_button_2" src="profile_resources/table_sort_button.png"  width=15 height=15 />
-                                </a>
+                                <form action="/zombie/profile/{{ username }}/" method="post">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="sort_by" value="zombie_kills" />
+                                    <input type="image" id="table_sort_button_2" src="{% static 'img/table_sort_button.png' %}"  width=15 height=15 />
+                                </form>
                             </div>
                         </th>
-                        <th onmouseover="showTableSortButton3()" onmouseout="hideTableSortButton3()">
+                        <th {% if scores_sorted_by != 'most_survivors' %} onmouseover="showTableSortButton3()" onmouseout="hideTableSortButton3()" {% endif %} >
                             Most Survivors
                             <div class="sort_button_div">
-                                <a href="#" onclick="alert('sort by survivors');">
-                                    <img id="table_sort_button_3" src="profile_resources/table_sort_button.png" width=15 height=15 />
-                                </a>
+                                <form action="/zombie/profile/{{ username }}/" method="post">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="sort_by" value="most_survivors" />
+                                    <input type="image" id="table_sort_button_3" src="{% static 'img/table_sort_button.png' %}" width=15 height=15 />
+                                </form>
                             </div>
                         </th>
                     </tr>
                     <tr>
-                        <td>Nicholas Cage</td>
-                        <td>13</td>
-                        <td>20</td>
-                        <td>9</td>
+                        {% if scores.0 %}
+                            <td>{{ scores.0.user }}</td>
+                            <td>{{ scores.0.days_survived }}</td>
+                            <td>{{ scores.0.zombie_kills }}</td>
+                            <td>{{ scores.0.most_survivors }}</td>
+                        {% endif %}
                     </tr>
                     <tr>
-                        <td>Nicholas Cage</td>
-                        <td>13</td>
-                        <td>20</td>
-                        <td>9</td>
+                        {% if scores.1 %}
+                            <td>{{ scores.1.user }}</td>
+                            <td>{{ scores.1.days_survived }}</td>
+                            <td>{{ scores.1.zombie_kills }}</td>
+                            <td>{{ scores.1.most_survivors }}</td>
+                        {% endif %}
                     </tr>
                     <tr>
-                        <td>Nicholas Cage</td>
-                        <td>13</td>
-                        <td>20</td>
-                        <td>9</td>
+                        {% if scores.2 %}
+                            <td>{{ scores.2.user }}</td>
+                            <td>{{ scores.2.days_survived }}</td>
+                            <td>{{ scores.2.zombie_kills }}</td>
+                            <td>{{ scores.2.most_survivors }}</td>
+                        {% endif %}
                     </tr>
                 </table>
             </div>
         </div>
         <script src="{% static 'js/profile_script.js' %}" type="text/javascript"></script>
+        <script>
+            {% if scores_sorted_by == 'days_survived' %}
+                document.getElementById('table_sort_button_1').style.visibility = "visible";
+            {% endif %} 
+            {% if scores_sorted_by == 'zombie_kills' %}
+                document.getElementById('table_sort_button_2').style.visibility = "visible";
+            {% endif %} 
+            {% if scores_sorted_by == 'most_survivors' %}
+                document.getElementById('table_sort_button_3').style.visibility = "visible";
+            {% endif %} 
+        </script>
     </body>
 </html>

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+
+{% load staticfiles %}
+
+<html>
+    <head>
+        <title>CSS Example 2.0</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/common_style.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'css/badges_style.css' %}" />
+    </head>
+    <body>
+        <div id="content_area">
+            <div id="title_div">
+                <span>{{ first_name }} {{ last_name }}'s Badges</span>
+                <div id="grey_overlay_1" class="grey_overlay" onclick="retract_badge();"></div>
+            </div>
+            <div id="badge_area">
+                <div class="badge_divs" id="badge_div_1">
+                    {% if killer_badge_unlocked %}
+                        <a href="#" onclick="expand_badge(1)">
+                            <img src="{% static 'img/badge_icon_killer.png' %}" width=70 height=70 />
+                        </a> <br />
+                        Killer
+                    {% else %}
+                        <a href="#" onclick="expand_badge(1)">
+                            <img src="{% static 'img/badge_icon_locked.png' %}" width=70 height=70 />
+                        </a> <br />
+                        Locked
+                    {% endif %}
+                </div>
+                <div class="badge_divs" id="badge_div_2">
+                    {% if survivor_badge_unlocked %}
+                        <a href="#" onclick="expand_badge(2)">
+                            <img src="{% static 'img/badge_icon_survivor.png' %}" width=70 height=70 />
+                        </a> <br />
+                        Survivor
+                    {% else %}
+                        <a href="#" onclick="expand_badge(2)">
+                            <img src="{% static 'img/badge_icon_locked.png' %}" width=70 height=70 />
+                        </a> <br />
+                        Locked
+                    {% endif %}
+                </div>
+                <div class="badge_divs" id="badge_div_3">
+                    {% if gatherer_badge_unlocked %}
+                        <a href="#" onclick="expand_badge(3)">
+                            <img src="{% static 'img/badge_icon_gatherer.png' %}" width=70 height=70 />
+                        </a> <br />
+                        Gatherer
+                    {% else %}
+                        <a href="#" onclick="expand_badge(3)">
+                            <img src="{% static 'img/badge_icon_locked.png' %}" width=70 height=70 />
+                        </a> <br />
+                        Locked
+                    {% endif %}
+                </div>
+                <div class="badge_divs" id="badge_div_4">
+                    {% if people_person_badge_unlocked %}
+                        <a href="#" onclick="expand_badge(4)">
+                            <img src="{% static 'img/badge_icon_people_person.png' %}" width=70 height=70 />
+                        </a> <br />
+                        People Person
+                    {% else %}
+                        <a href="#" onclick="expand_badge(4)">
+                            <img src="{% static 'img/badge_icon_locked.png' %}" width=70 height=70 />
+                        </a> <br />
+                        Locked
+                    {% endif %}
+                </div>
+                <div class="badge_divs" id="badge_div_5">
+                    {% if explorer_badge_unlocked %}
+                        <a href="#" onclick="expand_badge(5)">
+                            <img src="{% static 'img/badge_icon_explorer.png' %}" width=70 height=70 />
+                        </a> <br />
+                        Explorer
+                    {% else %}
+                        <a href="#" onclick="expand_badge(5)">
+                            <img src="{% static 'img/badge_icon_locked.png' %}" width=70 height=70 />
+                        </a> <br />
+                        Locked
+                    {% endif %}
+                </div>
+                <div class="badge_divs" id="badge_div_6">
+                    {% if noob_badge_unlocked %}
+                        <a href="#" onclick="expand_badge(6)">
+                            <img src="{% static 'img/badge_icon_noob.png' %}" width=70 height=70 />
+                        </a> <br />
+                        Noob
+                    {% else %}
+                        <a href="#" onclick="expand_badge(6)">
+                            <img src="{% static 'img/badge_icon_locked.png' %}" width=70 height=70 />
+                        </a> <br />
+                        Locked
+                    {% endif %}
+                </div>
+                
+                
+                <div id="grey_overlay_2" class="grey_overlay" onclick="retract_badge()"></div>
+                
+                
+                <div class="expanded_badge_divs" id="expanded_badge_div_1" {% if not killer_badge_unlocked %} style="background-color: rgba(167, 201, 209, 255);" {% endif %}>
+                    {% if killer_badge_unlocked %}
+                        <a href="#" onclick="retract_badge()">
+                            <img src="{% static 'img/badge_icon_killer.png' %}" width=70 height=70 />
+                        </a> <br />
+                        Killer <br />
+                        <br />
+                        You've killed a bunch of zombies
+                    {% else %}
+                        <a href="#" onclick="retract_badge()">
+                            <img src="{% static 'img/badge_icon_locked.png' %}" width=70 height=70 />
+                        </a> <br />
+                        Locked <br />
+                        <br />
+                        You've yet to unlock this badge
+                    {% endif %}
+                </div>
+                <div class="expanded_badge_divs" id="expanded_badge_div_2" {% if not survivor_badge_unlocked %} style="background-color: rgba(167, 201, 209, 255);" {% endif %}>
+                    {% if survivor_badge_unlocked %}
+                        <a href="#" onclick="retract_badge()">
+                            <img src="{% static 'img/badge_icon_survivor.png' %}" width=70 height=70 />
+                        </a> <br />
+                        Survivor <br />
+                        <br />
+                        You survived a long time
+                    {% else %}
+                        <a href="#" onclick="retract_badge()">
+                            <img src="{% static 'img/badge_icon_locked.png' %}" width=70 height=70 />
+                        </a> <br />
+                        Locked <br />
+                        <br />
+                        You've yet to unlock this badge
+                    {% endif %}
+                </div>
+                <div class="expanded_badge_divs" id="expanded_badge_div_3" {% if not gatherer_badge_unlocked %} style="background-color: rgba(167, 201, 209, 255);" {% endif %}>
+                    {% if gatherer_badge_unlocked %}
+                        <a href="#" onclick="retract_badge()">
+                            <img src="{% static 'img/badge_icon_gatherer.png' %}" width=70 height=70 />
+                        </a> <br />
+                        Gatherer <br />
+                        <br />
+                        You've gathered a lot of food and amunition
+                    {% else %}
+                        <a href="#" onclick="retract_badge()">
+                            <img src="{% static 'img/badge_icon_locked.png' %}" width=70 height=70 />
+                        </a> <br />
+                        Locked <br />
+                        <br />
+                        You've yet to unlock this badge
+                    {% endif %}
+                </div>
+                <div class="expanded_badge_divs" id="expanded_badge_div_4" {% if not people_person_badge_unlocked %} style="background-color: rgba(167, 201, 209, 255);" {% endif %}>
+                    {% if people_person_badge_unlocked %}
+                        <a href="#" onclick="retract_badge()">
+                            <img src="{% static 'img/badge_icon_people_person.png' %}" width=70 height=70 />
+                        </a> <br />
+                        People Person <br />
+                        <br />
+                        You've rescued many people
+                    {% else %}
+                        <a href="#" onclick="retract_badge()">
+                            <img src="{% static 'img/badge_icon_locked.png' %}" width=70 height=70 />
+                        </a> <br />
+                        Locked <br />
+                        <br />
+                        You've yet to unlock this badge
+                    {% endif %}
+                </div>
+                <div class="expanded_badge_divs" id="expanded_badge_div_5" {% if not explorer_badge_unlocked %} style="background-color: rgba(167, 201, 209, 255);" {% endif %}>
+                    {% if explorer_badge_unlocked %}
+                        <a href="#" onclick="retract_badge()">
+                            <img src="{% static 'img/badge_icon_explorer.png' %}" width=70 height=70 />
+                        </a> <br />
+                        Explorer <br />
+                        <br />
+                        You've searched many houses
+                    {% else %}
+                        <a href="#" onclick="retract_badge()">
+                            <img src="{% static 'img/badge_icon_locked.png' %}" width=70 height=70 />
+                        </a> <br />
+                        Locked <br />
+                        <br />
+                        You've yet to unlock this badge
+                    {% endif %}
+                </div>
+                <div class="expanded_badge_divs" id="expanded_badge_div_6" {% if not noob_badge_unlocked %} style="background-color: rgba(167, 201, 209, 255);" {% endif %}>
+                    {% if noob_badge_unlocked %}
+                        <a href="#" onclick="retract_badge()">
+                            <img src="{% static 'img/badge_icon_noob.png' %}" width=70 height=70 />
+                        </a> <br />
+                        Noob <br />
+                        <br />
+                        You've died on the first day. Nice one.
+                    {% else %}
+                        <a href="#" onclick="retract_badge()">
+                            <img src="{% static 'img/badge_icon_locked.png' %}" width=70 height=70 />
+                        </a> <br />
+                        Locked <br />
+                        <br />
+                        You've yet to unlock this badge
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    <script type="text/javascript" src="{% static 'js/badges_script.js' %}"></script>
+    </body>
+</html>

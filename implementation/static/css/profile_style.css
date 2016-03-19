@@ -67,19 +67,25 @@
     position: absolute;
     
     top: 50%;
-    left: 15%;
+    left: 15.4%; /* (2/13) */
 }
 #friend_div_2{
     position: absolute;
     
     top: 50%;
-    left: 35%;
+    left: 38.5%; /* (2/13) + (3/13) */
 }
 #friend_div_3{
     position: absolute;
     
     top: 50%;
-    left: 55%;
+    left: 61.5%; /* (2/13) + 2(3/13) */
+}
+#friend_div_4{
+    position: absolute;
+    
+    top: 50%;
+    left: 84.6%; /* (2/13) + 3(3/13) */
 }
 
 .badge_divs{
@@ -96,19 +102,37 @@
     position: absolute;
     
     top: 50%;
-    left: 10%;
+    left: 10.5%; /* (2/19) */
 }
 #badge_div_2{
     position: absolute;
     
     top: 50%;
-    left: 25%;
+    left: 26.3%; /* (2/19) + (3/19)*/
 }
 #badge_div_3{
     position: absolute;
     
     top: 50%;
-    left: 40%;
+    left: 42.1%; /* (2/19) + 2(3/19)*/
+}
+#badge_div_4{
+    position: absolute;
+    
+    top: 50%;
+    left: 57.9%; /* (2/19) + 3(3/19)*/
+}
+#badge_div_5{
+    position: absolute;
+    
+    top: 50%;
+    left: 73.7%; /* (2/19) + 4(3/19)*/
+}
+#badge_div_6{
+    position: absolute;
+    
+    top: 50%;
+    left: 89.5%; /* (2/19) + 5(3/19)*/
 }
 
 #leaderboard_table{
@@ -136,6 +160,9 @@
 }
 .sort_button_div{
     float: right;
+}
+#table_sort_button_1{
+    visibility: hidden;
 }
 #table_sort_button_2{
     visibility: hidden;

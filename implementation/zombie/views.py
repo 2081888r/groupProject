@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponse
 from zombie.forms import UserForm, UserProfileForm
 from django.contrib.auth.models import User
-from zombie.models import UserProfile
+from zombie.models import UserProfile, Score
 import re;
 
 #Extra/helper functions here
@@ -83,36 +83,64 @@ def register(request):
 def profile(request, username):
     try:
         user = User.objects.get(username = username)
-        #get all the context_dict stuff
-        return render(request, 'zombie/profile.html', {})
+        user_profile = UserProfile.objects.get(user=user)
+        
+        if request.method == 'POST':
+            if request.POST.get('sort_by') == 'days_survived':
+                scores = Score.objects.filter(user__exact=user_profile).order_by('-days_survived')
+                scores_sorted_by = "days_survived"
+            elif request.POST.get('sort_by') == 'zombie_kills':
+                scores = Score.objects.filter(user__exact=user_profile).order_by('-zombie_kills')
+                scores_sorted_by = "zombie_kills"
+            elif request.POST.get('sort_by') == 'most_survivors':
+                scores = Score.objects.filter(user__exact=user_profile).order_by('-most_survivors')
+                scores_sorted_by = "most_survivors"
+            else:
+                scores = Score.objects.filter(user__exact=user_profile).order_by('-days_survived')
+                scores_sorted_by = "days_survived"
+        else:
+            scores = Score.objects.filter(user__exact=user_profile).order_by('-days_survived')
+            scores_sorted_by = "days_survived"
+        
+        context_dict = {
+            'username':user.username,
+            'first_name':user.first_name,
+            'last_name':user.last_name,
+            'user_avatar':user_profile.avatar,
+            'friends':user_profile.friends.all(),
+            'killer_badge_unlocked':user_profile.has_killer_badge,
+            'survivor_badge_unlocked':user_profile.has_survivor_badge,
+            'gatherer_badge_unlocked':user_profile.has_gatherer_badge,
+            'people_person_badge_unlocked':user_profile.has_people_person_badge,
+            'explorer_badge_unlocked':user_profile.has_explorer_badge,
+            'noob_badge_unlocked':user_profile.has_noob_badge,
+            'scores':scores,
+            'scores_sorted_by':scores_sorted_by
+        }
+        
+        return render(request, 'zombie/profile.html', context_dict)
     except User.DoesNotExist as u:
         print '%s (%s)' % (u.message, type(u))
-        return render(request, 'zombie/404.html', {}) #if user doesn't exist
-    except Exception as e:
-        print '%s (%s)' % (e.message, type(e))
-        return render(request, 'zombie/404.html', {}) #catch all the exceptions
-    
-@login_required
-def profile_update(request):
-    if request.method == 'POST':
-        profile_form = UserProfileForm(request.POST, request.FILES)
-        if profile_form.is_valid():
-            profile = UserProfile.objects.get(user_id = request.user.id)
-            profile_form_data = profile_form.cleaned_data
-            profile_new_avatar = profile_form_data['avatar']
-            profile_new_full_name = profile_form_data['full_name']
-            if profile_new_avatar is not None: 
-                profile.avatar = profile_new_avatar
-            if len(profile_new_full_name) > 0: 
-                profile.full_name = profile_new_full_name
-                print profile_new_full_name
-            profile.save()
-            url = '/zombie/profile/'+str(request.user.username)
-            return HttpResponseRedirect(url)  #redirect to the profile
-        else:
-            print profile_form.errors
-#             
-    else:
-        profile_form = UserProfileForm()
-    
-    return render(request,"profiles/profile_update.html", {'profile_form': profile_form, 'user_name': request.user})
+        return redirect("/zombie/404/")
+
+def badges(request, username):
+    try:
+        user = User.objects.get(username = username)
+        user_profile = UserProfile.objects.get(user=user)
+        
+        context_dict = {
+            'username':user.username,
+            'first_name':user.first_name,
+            'last_name':user.last_name,
+            'killer_badge_unlocked':user_profile.has_killer_badge,
+            'survivor_badge_unlocked':user_profile.has_survivor_badge,
+            'gatherer_badge_unlocked':user_profile.has_gatherer_badge,
+            'people_person_badge_unlocked':user_profile.has_people_person_badge,
+            'explorer_badge_unlocked':user_profile.has_explorer_badge,
+            'noob_badge_unlocked':user_profile.has_noob_badge,
+        }
+        
+        return render(request, 'zombie/badges.html', context_dict)
+    except User.DoesNotExist as u:
+        print '%s (%s)' % (u.message, type(u))
+        return redirect("/zombie/404/")
