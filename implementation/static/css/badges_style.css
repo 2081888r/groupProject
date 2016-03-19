@@ -58,49 +58,37 @@
     position: absolute;
     
     top: 28.57%;    /* (2/7) */
-    left: 15.38%;   /* (2/13) */
+    left: 20%;      /* (2/10) */
 }
 #badge_div_2{
     position: absolute;
     
     top: 28.57%;    /* (2/7) */
-    left: 38.46%;   /* (2/13)+(3/13) */
+    left: 50%;      /* (2/10)+(3/10) */
 }
 #badge_div_3{
     position: absolute;
     
     top: 28.57%;    /* (2/7) */
-    left: 61.54%;   /* (2/13)+2*(3/13) */
+    left: 80%;      /* (2/10)+2*(3/10) */
 }
 #badge_div_4{
     position: absolute;
     
-    top: 28.57%;    /* (2/7) */
-    left: 84.46%;   /* (2/13)+3*(3/13) */
+    top: 71.43%;    /* (2/7)+(3/7) */
+    left:20%;       /* (2/10) */
 }
 #badge_div_5{
     position: absolute;
     
     top: 71.43%;    /* (2/7)+(3/7) */
-    left: 15.38%;   /* (2/13) */
+    left: 50%;      /* (2/10)+(3/10) */
 }
 #badge_div_6{
     position: absolute;
     
     top: 71.43%;    /* (2/7)+(3/7) */
-    left: 38.46%;   /* (2/13)+(3/13) */
-}
-#badge_div_7{
-    position: absolute;
-    
-    top: 71.43%;    /* (2/7)+(3/7) */
-    left: 61.54%;   /* 2/13)+2*(3/13) */
-}
-#badge_div_8{
-    position: absolute;
-    
-    top: 71.43%;    /* (2/7)+(3/7) */
-    left: 84.46%;   /* (2/13)+3*(3/13) */
+    left: 80%;      /* (2/10)+2*(3/10) */
 }
 
 .expanded_badge_divs{
@@ -120,7 +108,7 @@
     position: absolute;
     
     top: 28.57%;    /* (2/7) */
-    left: 15.38%;   /* (2/13) */
+    left: 20%;   /* (2/10) */
 
     background-color: rgba(97, 97, 97, 255);
     visibility: hidden;
@@ -130,7 +118,7 @@
     position: absolute;
     
     top: 28.57%;    /* (2/7) */
-    left: 38.46%;   /* (2/13)+(3/13) */
+    left: 50%;   /* (2/10)+(3/10) */
 
     background-color: rgba(153, 217 ,234, 255);
     visibility: hidden;
@@ -140,7 +128,7 @@
     position: absolute;
     
     top: 28.57%;    /* (2/7) */
-    left: 61.54%;   /* (2/13)+2*(3/13) */
+    left: 80%;   /* (2/10)+2*(3/10) */
 
     background-color: rgba(207, 50, 120, 255);
     visibility: hidden;
@@ -149,8 +137,8 @@
 #expanded_badge_div_4{
     position: absolute;
     
-    top: 28.57%;    /* (2/7) */
-    left: 84.46%;   /* (2/13)+3*(3/13) */
+    top: 71.43%;    /* (2/7)+(3/7) */
+    left: 20%;   /* (2/10) */
 
     background-color: rgba(54, 202, 234, 255);
     visibility: hidden;
@@ -160,7 +148,7 @@
     position: absolute;
     
     top: 71.43%;    /* (2/7)+(3/7) */
-    left: 15.38%;   /* (2/13) */
+    left: 50%;   /* (2/10)+(3/10) */
 
     background-color: rgba(255, 162, 0, 255);
     visibility: hidden;
@@ -170,29 +158,9 @@
     position: absolute;
     
     top: 71.43%;    /* (2/7)+(3/7) */
-    left: 38.46%;   /* (2/13)+(3/13) */
+    left: 80%;   /* (2/10)+2*(3/10) */
 
     background-color: rgba(222, 222, 222, 255);
-    visibility: hidden;
-    overflow: hidden;
-}
-#expanded_badge_div_7{
-    position: absolute;
-    
-    top: 71.43%;    /* (2/7)+(3/7) */
-    left: 61.54%;   /* 2/13)+2*(3/13) */
-
-    background-color: rgba(167, 201, 209, 255);
-    visibility: hidden;
-    overflow: hidden;
-}
-#expanded_badge_div_8{
-    position: absolute;
-    
-    top: 71.43%;    /* (2/7)+(3/7) */
-    left: 84.46%;   /* (2/13)+3*(3/13) */
-
-    background-color: rgba(167, 201, 209, 255);
     visibility: hidden;
     overflow: hidden;
 }
