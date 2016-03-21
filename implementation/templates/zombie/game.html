@@ -50,29 +50,79 @@
                     {% if game.street.house_list|length_is:"5" %}
                         <img src="{% static 'img/game_streetview_5.png' %}" width=800 height=475 usemap="#main_map" />
                         <map name="main_map" id="main_map">
-                            <area href="javascript:void();" shape="rect" coords=" 87,   9, 272, 142" onclick="submitAction('MOVEENTER', '0')" />
-                            <area href="javascript:void();" shape="rect" coords="327,  33, 479, 135" onclick="submitAction('MOVEENTER', '1')" />
-                            <area href="javascript:void();" shape="rect" coords="627,   8, 731, 140" onclick="submitAction('MOVEENTER', '2')" />
-                            <area href="javascript:void();" shape="rect" coords="154, 226, 337, 346" onclick="submitAction('MOVEENTER', '3')" />
-                            <area href="javascript:void();" shape="rect" coords="499, 221, 720, 344" onclick="submitAction('MOVEENTER', '4')" />
+                            <area href="javascript:void();" shape="rect" coords=" 49,  38, 224, 168" onclick="submitAction('MOVEENTER', '0')" />
+                            <area href="javascript:void();" shape="rect" coords="333,  66, 484, 168" onclick="submitAction('MOVEENTER', '1')" />
+                            <area href="javascript:void();" shape="rect" coords="618,  39, 722, 172" onclick="submitAction('MOVEENTER', '2')" />
+                            <area href="javascript:void();" shape="rect" coords="180, 249, 356, 368" onclick="submitAction('MOVEENTER', '3')" />
+                            <area href="javascript:void();" shape="rect" coords="464, 255, 675, 373" onclick="submitAction('MOVEENTER', '4')" />
                         </map>
                     {% elif game.street.house_list|length_is:"6" %}
-                        <img src="{% static 'img/game_streetview_6.png' %}" width=800 height=475 />
+                        <img src="{% static 'img/game_streetview_6.png' %}" width=800 height=475 usemap="#main_map" />
+                        <map name="main_map" id="main_map">
+                            <area href="javascript:void();" shape="rect" coords=" 73,  36, 254, 171" onclick="submitAction('MOVEENTER', '0')" />
+                            <area href="javascript:void();" shape="rect" coords="346,  70, 502, 174" onclick="submitAction('MOVEENTER', '1')" />
+                            <area href="javascript:void();" shape="rect" coords="608,  44, 717, 179" onclick="submitAction('MOVEENTER', '2')" />
+                            <area href="javascript:void();" shape="rect" coords=" 97, 286, 224, 385" onclick="submitAction('MOVEENTER', '3')" />
+                            <area href="javascript:void();" shape="rect" coords="354, 271, 481, 370" onclick="submitAction('MOVEENTER', '4')" />
+                            <area href="javascript:void();" shape="rect" coords="547, 260, 765, 384" onclick="submitAction('MOVEENTER', '5')" />
+                        </map>
                     {% elif game.street.house_list|length_is:"7" %}
-                        <img src="{% static 'img/game_streetview_7.png' %}" width=800 height=475 />
+                        <img src="{% static 'img/game_streetview_7.png' %}" width=800 height=475 usemap="#main_map" />
+                        <map name="main_map" id="main_map">
+                            <area href="javascript:void();" shape="rect" coords=" 31,  52, 211, 187" onclick="submitAction('MOVEENTER', '0')" />
+                            <area href="javascript:void();" shape="rect" coords="256,  70, 394, 206" onclick="submitAction('MOVEENTER', '1')" />
+                            <area href="javascript:void();" shape="rect" coords="425,  82, 579, 185" onclick="submitAction('MOVEENTER', '2')" />
+                            <area href="javascript:void();" shape="rect" coords="630,  49, 737, 184" onclick="submitAction('MOVEENTER', '3')" />
+                            <area href="javascript:void();" shape="rect" coords=" 82, 280, 207, 379" onclick="submitAction('MOVEENTER', '4')" />
+                            <area href="javascript:void();" shape="rect" coords="318, 281, 443, 380" onclick="submitAction('MOVEENTER', '5')" />
+                            <area href="javascript:void();" shape="rect" coords="538, 273, 757, 396" onclick="submitAction('MOVEENTER', '7')" />
+                        </map>
                     {% elif game.street.house_list|length_is:"8" %}
-                        <img src="{% static 'img/game_streetview_8.png' %}" width=800 height=475 />
+                        <img src="{% static 'img/game_streetview_8.png' %}" width=800 height=475 usemap="#main_map" />
+                        <map name="main_map" id="main_map">
+                            <area href="javascript:void();" shape="rect" coords=" 27,  65, 208, 201" onclick="submitAction('MOVEENTER', '0')" />
+                            <area href="javascript:void();" shape="rect" coords="252,  81, 399, 224" onclick="submitAction('MOVEENTER', '1')" />
+                            <area href="javascript:void();" shape="rect" coords="423,  87, 583, 198" onclick="submitAction('MOVEENTER', '2')" />
+                            <area href="javascript:void();" shape="rect" coords="629,  57, 736, 196" onclick="submitAction('MOVEENTER', '3')" />
+                            <area href="javascript:void();" shape="rect" coords=" 47, 290, 171, 390" onclick="submitAction('MOVEENTER', '4')" />
+                            <area href="javascript:void();" shape="rect" coords="207, 291, 333, 391" onclick="submitAction('MOVEENTER', '5')" />
+                            <area href="javascript:void();" shape="rect" coords="366, 280, 544, 400" onclick="submitAction('MOVEENTER', '7')" />
+                            <area href="javascript:void();" shape="rect" coords="568, 282, 778, 406" onclick="submitAction('MOVEENTER', '8')" />
+                        </map>
                     {% endif %}
                 {% elif game.game_state == "HOUSE" %}
                     {% if game.street.get_current_house.num_of_rooms == 6 %}
                         <img src="{% static 'img/game_houseview_6.png' %}" width=800 height=475 usemap="#main_map" />
                         <map name="main_map" id="main_map">
-                            <area href="javascript:void();" shape="rect" coords="189,  35, 403, 156" onclick="submitAction('SEARCH', '0')" />
-                            <area href="javascript:void();" shape="rect" coords="189, 161, 359, 297" onclick="submitAction('SEARCH', '1')" />
-                            <area href="javascript:void();" shape="rect" coords="189, 301, 360, 419" onclick="submitAction('SEARCH', '2')" />
-                            <area href="javascript:void();" shape="rect" coords="406, 298, 567, 419" onclick="submitAction('SEARCH', '3')" />
-                            <area href="javascript:void();" shape="rect" coords="410, 180, 567, 295" onclick="submitAction('SEARCH', '4')" />
-                            <area href="javascript:void();" shape="rect" coords="408,  36, 569, 176" onclick="submitAction('SEARCH', '5')" />
+                            <area href="javascript:void();" shape="rect" coords="209,  96, 358, 197" onclick="submitAction('SEARCH', '0')" />
+                            <area href="javascript:void();" shape="rect" coords="358,  96, 438, 197" onclick="submitAction('SEARCH', '1')" />
+                            <area href="javascript:void();" shape="rect" coords="437,  96, 584, 197" onclick="submitAction('SEARCH', '2')" />
+                            <area href="javascript:void();" shape="rect" coords="498, 197, 584, 368" onclick="submitAction('SEARCH', '3')" />
+                            <area href="javascript:void();" shape="rect" coords="289, 266, 498, 367" onclick="submitAction('SEARCH', '4')" />
+                            <area href="javascript:void();" shape="rect" coords="208, 266, 289, 367" onclick="submitAction('SEARCH', '5')" />
+                        </map>
+                    {% elif game.street.get_current_house.num_of_rooms == 7 %}
+                        <img src="{% static 'img/game_houseview_7.png' %}" width=800 height=475 usemap="#main_map" />
+                        <map name="main_map" id="main_map">
+                            <area href="javascript:void();" shape="rect" coords="208,  96, 358, 196" onclick="submitAction('SEARCH', '0')" />
+                            <area href="javascript:void();" shape="rect" coords="358,  97, 438, 197" onclick="submitAction('SEARCH', '1')" />
+                            <area href="javascript:void();" shape="rect" coords="436,  96, 584, 196" onclick="submitAction('SEARCH', '2')" />
+                            <area href="javascript:void();" shape="rect" coords="498, 196, 585, 367" onclick="submitAction('SEARCH', '3')" />
+                            <area href="javascript:void();" shape="rect" coords="408, 266, 498, 367" onclick="submitAction('SEARCH', '4')" />
+                            <area href="javascript:void();" shape="rect" coords="288, 266, 409, 367" onclick="submitAction('SEARCH', '5')" />
+                            <area href="javascript:void();" shape="rect" coords="208, 266, 290, 367" onclick="submitAction('SEARCH', '6')" />
+                        </map>
+                    {% elif game.street.get_current_house.num_of_rooms == 8 %}
+                        <img src="{% static 'img/game_houseview_8.png' %}" width=800 height=475 usemap="#main_map" />
+                        <map name="main_map" id="main_map">
+                            <area href="javascript:void();" shape="rect" coords="148,  96, 298, 196"" onclick="submitAction('SEARCH', '0')" />
+                            <area href="javascript:void();" shape="rect" coords="297,  96, 425, 196" onclick="submitAction('SEARCH', '1')" />
+                            <area href="javascript:void();" shape="rect" coords="423,  96, 504, 196" onclick="submitAction('SEARCH', '2')" />
+                            <area href="javascript:void();" shape="rect" coords="502,  96, 649, 196" onclick="submitAction('SEARCH', '3')" />
+                            <area href="javascript:void();" shape="rect" coords="558, 196, 648, 367" onclick="submitAction('SEARCH', '4')" />
+                            <area href="javascript:void();" shape="rect" coords="348, 266, 559, 366" onclick="submitAction('SEARCH', '5')" />
+                            <area href="javascript:void();" shape="rect" coords="230, 266, 348, 366" onclick="submitAction('SEARCH', '6')" />
+                            <area href="javascript:void();" shape="rect" coords="148, 266, 229, 366" onclick="submitAction('SEARCH', '7')" />
                         </map>
                     {% else %}
                         Something went wrong: {{ game.street.get_current_house.num_of_rooms }}
