@@ -10,7 +10,7 @@
     <body>
         <div id="content_area">
             <img width=800 height=600 src="{% static 'img/main_screen.png' %}" usemap="#screen_map" />
-            <map id="screen_map">
+            <map id="screen_map" name="screen_map">
                 <area shape="rect" coords="182, 415, 354, 446" href="javascript:void()" onclick="new_game()" />
                 <area shape="rect" coords="441, 416, 613, 446" href="/zombie/game/" />
                 <area shape="rect" coords="113, 475, 285, 505" href="/zombie/leaderboard/" />
