@@ -11,12 +11,12 @@
         <div id="content_area">
             <img width=800 height=600 src="{% static 'img/main_screen.png' %}" usemap="#screen_map" />
             <map id="screen_map">
-                <area shape="rect" coords="219, 418, 363, 456" href="javascript:void()" onclick="new_game()" />
-                <area shape="rect" coords="411, 418, 535, 456" href="/zombie/game/" />
-                <area shape="rect" coords=" 74, 485, 236, 523" href="/zombie/leaderboard/" />
-                <area shape="rect" coords="340, 485, 430, 523" href="/zombie/profile/{{ username }}" />
-                <area shape="rect" coords="520, 487, 696, 525" href="/zombie/profile/{{ username }}/badges/" />
-                <area shape="rect" coords="683,   6, 790,  40" href="/zombie/logout/" />
+                <area shape="rect" coords="182, 415, 354, 446" href="javascript:void()" onclick="new_game()" />
+                <area shape="rect" coords="441, 416, 613, 446" href="/zombie/game/" />
+                <area shape="rect" coords="113, 475, 285, 505" href="/zombie/leaderboard/" />
+                <area shape="rect" coords="313, 475, 485, 505" href="/zombie/profile/{{ username }}" />
+                <area shape="rect" coords="514, 475, 686, 505" href="/zombie/profile/{{ username }}/badges/" />
+                <area shape="rect" coords="613,  17, 785,  47" href="/zombie/logout/" />
             </map>
         </div>
         <form id="submission_form" action="/zombie/game/" method="POST">
