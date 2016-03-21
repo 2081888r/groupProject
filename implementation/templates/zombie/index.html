@@ -1,46 +1,41 @@
 <!DOCTYPE html>
 
 {% load staticfiles %}
-<header>
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-        
-        <div class="navbar navbar-fixed-top">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#resp-nav">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                </div>
-                <div class="navbar-collapse navbar-default collapse" id="resp-nav">
-                    <ul class="nav navbar-nav nav-bar-left">
-                        <li><a href="{% url 'index' %}">Home</a></li>
-                        {% if user.is_authenticated %}
-                        {% endif %}
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right">
-                        {% if user.is_authenticated %}
-                        <p class="navbar-text navbar-left" style="color: #595959">Signed in as <a href="/zombie/profile/{{user.get_username}}" class="navbar-link" style="color: #595959"><b>{{user.username}}</b></a></p>
-                        <li><a href="{% url 'logout' %}?next=/zombie/">Logout</a></li>
-                        {% else %}
-                        <li><a href="{% url 'login' %}">Login</a></li>
-                        <li><a href="{% url 'register' %}">Register</a></li>
-                        {% endif %}
-                    </ul>
-                </div>
-            </div>
-        </div>  <!--end of navbar-->
-          
-        <div class="logo-container">
-            <a href="{% url 'index' %}"><img src="/static/img/wip.jpg"></a>
-        </div>
-      
-      </header>
 
-      <main>
-          <div id="content_area">
+<html>
+    <head>
+        <title>CSS Example 2.0</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/common_style.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'css/index_style.css' %}" />
+        
+        <script>
+            {% if registration_errors %}
+                str = "Error creating account:\n";
+                {% if errors.0 %}
+                    str += "Username all ready in use.\n";
+                {% endif %}
+                {% if errors.1 %}
+                    str += "Username must contain only lowercase letters, and numbers.\n";
+                {% endif %}
+                {% if errors.2%}
+                    str += "Email invalid.\n";
+                {% endif %}
+                {% if errors.3 %}
+                    str += "Passwords did not match.\n";
+                {% endif %}
+                alert(str);
+            {% endif %}
+            {% if registration_successful %}
+                alert("Successfully registered.");
+            {% endif %}
+            {% if login_errors %}
+                alert("Invalid login details. Please try again.");
+            {% endif %}
+        </script>
+
+    </head>
+    <body>
+        <div id="content_area">
             <img width=800 height=600 src="{% static 'img/index_screen.png' %}" usemap="#screen_map" />
             <map id="screen_map">
                 <area shape="rect" coords="314, 431, 487, 461" href="javascript:void();" onclick="openLogInPopUp()"/>
@@ -107,21 +102,6 @@
                 </form>
             </div>
         </div>
-      </main>
-      
-
-<html>
-    <head>
-	<link rel="icon" href="/static/img/wip.jpg">
-        <title>CSS Example 2.0</title>
-        <link rel="stylesheet" type="text/css" href="{% static 'css/common_style.css' %}" />
-        <link rel="stylesheet" type="text/css" href="{% static 'css/index_style.css' %}" />
-        
-        
-
-    </head>
-    <body>
-        
         <script src="{% static 'js/index_script.js' %}"></script>
     </body>
 </html>
