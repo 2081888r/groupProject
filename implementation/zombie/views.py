@@ -5,7 +5,11 @@ from django.http import HttpResponseRedirect, HttpResponse
 from zombie.forms import UserForm, UserProfileForm
 from django.contrib.auth.models import User
 from zombie.models import UserProfile, Score
-import re;
+import re
+import os.path
+from engine.game import Game, PlayerState
+import pickle
+import dill
 
 #Extra/helper functions here
 
@@ -86,6 +90,29 @@ def register(request):
             return render(request,'zombie/index.html', {'registration_successful':True})
     else:
         return redirect("/zombie/")
+
+def leaderboard(request):
+    if request.method == 'POST':
+        if request.POST.get('sort_by') == 'days_survived':
+            scores = Score.objects.order_by('-days_survived')[:10]
+            scores_sorted_by = "days_survived"
+        elif request.POST.get('sort_by') == 'zombie_kills':
+            scores = Score.objects.order_by('-zombie_kills')[:10]
+            scores_sorted_by = "zombie_kills"
+        elif request.POST.get('sort_by') == 'most_survivors':
+            scores = Score.objects.order_by('-most_survivors')[:10]
+            scores_sorted_by = "most_survivors"
+        else:
+            scores = Score.objects.order_by('-days_survived')[:10]
+            scores_sorted_by = "days_survived"
+    else:
+        scores = Score.objects.order_by('-days_survived')[:10]
+        scores_sorted_by = "days_survived"
+    context_dict = {
+        'scores':scores,
+        'scores_sorted_by':scores_sorted_by
+    }
+    return render(request, 'zombie/leaderboard.html', context_dict)
 
 def profile(request, username):
     try:
@@ -168,3 +195,65 @@ def badges(request, username):
     except User.DoesNotExist as u:
         print '%s (%s)' % (u.message, type(u))
         return redirect("/zombie/404/")
+
+
+def game(request):
+    if not os.path.isfile('gameData/'+request.user.username+'.txt'): #new game
+        g = Game()
+    else: #continue game
+        f = open('gameData/'+request.user.username+'.txt', 'rb')
+        g = dill.load(f)
+    
+    if g.game_state is None: #game is uninitialised
+        g.start_new_day()
+    
+    if g.is_day_over():
+        g.start_new_day()
+    
+    if g.is_game_over():
+        return redirect("/zombie/")
+    
+    if request.method == 'POST':
+        print "-------------------------"
+        print request.POST.get('action')
+        print request.POST.get('pos')
+        print "-------------------------"
+        action = request.POST.get('action')
+        if action == 'MOVEENTER':
+            pos = request.POST.get('pos')
+            g.take_turn('MOVE', int(pos))
+            g.take_turn('ENTER')
+        elif action == 'SEARCH':
+            pos = request.POST.get('pos')
+            g.take_turn(action, int(pos))
+        else:
+            g.take_turn(action)
+    
+    f = open('gameData/'+request.user.username+'.txt', 'wb')
+    dill.dump(g, f)
+    
+    return render(request, 'zombie/game.html', {'game':g})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

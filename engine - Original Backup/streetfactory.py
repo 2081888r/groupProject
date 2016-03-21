@@ -45,7 +45,7 @@ class StreetFactory(object):
 
         # how many houses in street?
 
-        number_of_houses = 5#random.randint(5,8)
+        number_of_houses = random.randint(5,8)
 
         # name of street
         street_name = '{0} {1}'.format(self.faker.street_name(), self.faker.street_suffix())

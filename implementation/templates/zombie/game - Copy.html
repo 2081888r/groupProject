@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+
+{% load staticfiles %}
+
+<html>
+    <head>
+        <title>Zombie</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/common_style.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'css/game_style.css' %}" />
+    </head>
+    <body>
+        <div id="content_area">
+            Player State: {{ game.player_state }} <br />
+            Game State: {{ game.game_state }} <br />
+            {% if game.update_state.party < 0 %} <!--  -->
+                You've lost {{ game.update_state.party }} people. <br />
+            {% endif %}
+            {% if game.update_state.party > 0 %}
+                You've gained {{ game.update_state.party }} people. <br />
+            {% endif %}
+            {% if game.update_state.ammo < 0 %} <!--  -->
+                You've lost {{ game.update_state.ammo }} ammo. <br />
+            {% endif %}
+            {% if game.update_state.ammo > 0 %}
+                You've gained {{ game.update_state.ammo }} ammo. <br />
+            {% endif %}
+            {% if game.update_state.food < 0 %} <!--  -->
+                You've lost {{ game.update_state.food }} food. <br />
+            {% endif %}
+            {% if game.update_state.food > 0 %}
+                You've gained {{ game.update_state.food }} food. <br />
+            {% endif %}
+            {% if game.update_state.kills > 0 %}
+                You've killed {{ game.update_state.kills }} zombies. <br />
+            {% endif %}
+            {% if game.update_state.days > 0 %}
+                A new day has dawned. <br />
+            {% endif %}
+            {% if game.game_state == "STREET" %}
+                {{ game.street }} <br />
+                {% for house in game.street.house_list %}
+                    House: {{ house }}<br />
+                {% endfor %}
+            {% elif game.game_state == "HOUSE" %}
+                {{ game.street.get_current_house }} <br />
+            {% elif game.game_state == "ZOMBIE" %}
+                Oh no! {{ game.street.get_current_house.get_current_room.zombies }} zombies!
+            {% else %}
+                Something went wrong
+            {% endif %}
+            <form action="/zombie/game/" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="MOVE" />
+                <input type="number" name="pos" />
+                <input type="submit" value="MOVE" />
+            </form>
+            <form action="/zombie/game/" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="ENTER" />
+                <input type="submit" value="ENTER" />
+            </form>
+            <form action="/zombie/game/" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="WAIT" />
+                <input type="submit" value="WAIT" />
+            </form>
+            <form action="/zombie/game/" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="SEARCH" />
+                <input type="number" name="pos" />
+                <input type="submit" value="SEARCH" />
+            </form>
+            <form action="/zombie/game/" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="EXIT" />
+                <input type="submit" value="EXIT" />
+            </form>
+            <form action="/zombie/game/" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="FIGHT" />
+                <input type="submit" value="FIGHT" />
+            </form>
+            <form action="/zombie/game/" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="RUN" />
+                <input type="submit" value="RUN" />
+            </form>
+        </div>
+    </body>
+</html>

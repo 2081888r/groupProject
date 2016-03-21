@@ -1,0 +1,171 @@
+
+{% load staticfiles %}
+
+<html>
+    <head>
+        <title>django_game_example</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/common_style.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'css/game_style.css' %}" />
+    </head>
+    <body>
+        <div id="content_area">
+            <div id="top_panel">
+                <div id="top_panel_ammo">
+                    <img src="{% static 'img/ammo_icon.png' %}" width=35 height=35 /> <br />
+                    {{ game.player_state.ammo }}
+                </div>
+                <div id="top_panel_food">
+                    <img src="{% static 'img/food_icon.png' %}" width=35 height=35 /> <br />
+                    {{ game.player_state.food }}
+                </div>
+                <div id="top_panel_party">
+                    <img src="{% static 'img/partysize_icon.png' %}" width=35 height=35 /> <br />
+                    {{ game.player_state.party }}
+                </div>
+                <div id="top_panel_time">
+                    14:33
+                </div>
+            </div>
+            <div id="bottom_panel">
+                <div id="bottom_panel_content">
+                    {% if game.game_state == "STREET" %}
+                        Click on a house to enter it.
+                    {% elif game.game_state == "HOUSE" %}
+                        Click on a room to search it, or <a href="javascript:void()" onclick="submitAction('EXIT', '')" >go back outside.</a>
+                    {% elif game.game_state == "ZOMBIE" %}
+                        Oh no! Zombies! do you want to <a href="javascript:void()" onclick="submitAction('FIGHT', '')" >fight</a> or <a href="javascript:void()" onclick="submitAction('RUN', '')" >run</a>?
+                    {% endif %}
+                </div>
+            </div>
+            <div id="main">
+                
+                
+                {% if game.game_state == "STREET" %}
+                    {% if game.street.house_list|length_is:"5" %}
+                        <img src="{% static 'img/game_streetview_5.png' %}" width=800 height=475 usemap="#main_map" />
+                        <map name="main_map" id="main_map">
+                            <area href="javascript:void();" shape="rect" coords=" 87,   9, 272, 142" onclick="submitAction('MOVEENTER', '0')" />
+                            <area href="javascript:void();" shape="rect" coords="327,  33, 479, 135" onclick="submitAction('MOVEENTER', '1')" />
+                            <area href="javascript:void();" shape="rect" coords="627,   8, 731, 140" onclick="submitAction('MOVEENTER', '2')" />
+                            <area href="javascript:void();" shape="rect" coords="154, 226, 337, 346" onclick="submitAction('MOVEENTER', '3')" />
+                            <area href="javascript:void();" shape="rect" coords="499, 221, 720, 344" onclick="submitAction('MOVEENTER', '4')" />
+                        </map>
+                    {% elif game.street.house_list|length_is:"6" %}
+                        <img src="{% static 'img/game_streetview_6.png' %}" width=800 height=475 />
+                    {% elif game.street.house_list|length_is:"7" %}
+                        <img src="{% static 'img/game_streetview_7.png' %}" width=800 height=475 />
+                    {% elif game.street.house_list|length_is:"8" %}
+                        <img src="{% static 'img/game_streetview_8.png' %}" width=800 height=475 />
+                    {% endif %}
+                {% elif game.game_state == "HOUSE" %}
+                    {% if game.street.get_current_house.num_of_rooms == 6 %}
+                        <img src="{% static 'img/game_houseview_6.png' %}" width=800 height=475 usemap="#main_map" />
+                        <map name="main_map" id="main_map">
+                            <area href="javascript:void();" shape="rect" coords="189,  35, 403, 156" onclick="submitAction('SEARCH', '0')" />
+                            <area href="javascript:void();" shape="rect" coords="189, 161, 359, 297" onclick="submitAction('SEARCH', '1')" />
+                            <area href="javascript:void();" shape="rect" coords="189, 301, 360, 419" onclick="submitAction('SEARCH', '2')" />
+                            <area href="javascript:void();" shape="rect" coords="406, 298, 567, 419" onclick="submitAction('SEARCH', '3')" />
+                            <area href="javascript:void();" shape="rect" coords="410, 180, 567, 295" onclick="submitAction('SEARCH', '4')" />
+                            <area href="javascript:void();" shape="rect" coords="408,  36, 569, 176" onclick="submitAction('SEARCH', '5')" />
+                        </map>
+                    {% else %}
+                        Something went wrong: {{ game.street.get_current_house.num_of_rooms }}
+                    {% endif %}
+                {% elif game.game_state == "ZOMBIE" %}
+                    <img src="{% static 'img/game_zombieview.png' %}" width=800, height=475 />
+                    <div style="position:absolute; left:210px; top:310px; font-size:36px;">
+                        {{ game.street.get_current_house.get_current_room.zombies }}
+                    </div>
+                {% else %}
+                    Something went wrong
+                {% endif %}
+                
+                
+                
+                
+                
+            </div>
+            <div id="left_panel_tag">
+                <div id="left_panel_party_icon">
+                    <img src="{% static 'img/party_icon.png' %}" width=35 height=35 onclick="left_panel_buttons_onclick()"/>
+                </div>
+                <div id="left_panel_log_icon">
+                    <img src="{% static 'img/log_icon.png' %}" width=35 height=35 onclick="left_panel_buttons_onclick()" />
+                </div>
+                <div id="left_panel_arrow_icon">
+                    <img id="left_panel_arrow_image" src="{% static 'img/arrow_icon.png' %}" width=25 height=72 onclick="left_panel_buttons_onclick()" />
+                </div>
+            </div>
+            <div id="left_panel">
+                <div id="left_panel_party">
+                    <table id="left_panel_party_table">
+                        <tr>
+                            <th>Name</th>
+                            <th>S</th>
+                            <th>A</th>
+                        </tr>
+                        <tr>
+                            <td>John Doe</td>
+                            <td align="center">3</td>
+                            <td align="center">7</td>
+                        </tr>
+                        <tr>
+                            <td>John Doe</td>
+                            <td align="center">3</td>
+                            <td align="center">7</td>
+                        </tr>
+                        <tr>
+                            <td>John Doe</td>
+                            <td align="center">3</td>
+                            <td align="center">7</td>
+                        </tr>
+                        <tr>
+                            <td>John Doe</td>
+                            <td align="center">3</td>
+                            <td align="center">7</td>
+                        </tr>
+                    </table>
+                </div>
+                <div id="left_panel_log">
+                    <table id="left_panel_log_table">
+                        <tr><td>12:54 &nbsp First log entry</td></tr>
+                        <tr><td>13:30 &nbsp Second log entry</td></tr>
+                        <tr><td>13:45 &nbsp Third log entry</td></tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <form id="submission_form" action="/zombie/game/" method="POST"> <!-- Used by javascript to submit actions based on user clicks -->
+            {% csrf_token %}
+        </form>
+        
+        <script type="text/javascript" src="{% static 'js/game_script.js' %}"></script>
+        <script>
+            {% if game.update_state.kills > 0 %}
+                alert("You've killed {{ game.update_state.kills }} zombies.");
+            {% endif %}
+            {% if game.update_state.party < 0 %}
+                alert("You've lost {{ game.update_state.party }} people.");
+            {% endif %}
+            {% if game.update_state.party > 0 %}
+                alert("You've gained {{ game.update_state.party }} people.");
+            {% endif %}
+            {% if game.update_state.ammo < 0 %}
+                alert("You've lost {{ game.update_state.ammo }} ammo.");
+            {% endif %}
+            {% if game.update_state.ammo > 0 %}
+                alert("You've gained {{ game.update_state.ammo }} ammo.");
+            {% endif %}
+            {% if game.update_state.food < 0 %}
+                alert("You've lost {{ game.update_state.food }} food.");
+            {% endif %}
+            {% if game.update_state.food > 0 %}
+                alert("You've gained {{ game.update_state.food }} food.");
+            {% endif %}
+            {% if game.update_state.days > 0 %}
+                alert("A new day has dawned.");
+            {% endif %}
+        </script>
+    </body>
+</html>
