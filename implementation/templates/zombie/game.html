@@ -35,7 +35,7 @@
                     {% elif game.game_state == "HOUSE" %}
                         Click on a room to search it, or <a href="javascript:void()" onclick="submitAction('EXIT', '')" >go back outside.</a>
                     {% elif game.game_state == "ZOMBIE" %}
-                        Oh no! Zombies! do you want to <a href="javascript:void()" onclick="submitAction('FIGHT', '')" >fight</a> or <a href="javascript:void()" onclick="submitAction('RUN', '')" >run</a>?
+                        You've encountered {{ game.street.get_current_house.get_current_room.zombies }} zombies!
                     {% endif %}
                 </div>
                 <div style="position:absolute; left:0px; padding: 7px 0px 0px 5px">
@@ -128,10 +128,11 @@
                         Something went wrong: {{ game.street.get_current_house.num_of_rooms }}
                     {% endif %}
                 {% elif game.game_state == "ZOMBIE" %}
-                    <img src="{% static 'img/game_zombieview.png' %}" width=800, height=475 />
-                    <div style="position:absolute; left:210px; top:310px; font-size:36px;">
-                        {{ game.street.get_current_house.get_current_room.zombies }}
-                    </div>
+                    <img src="{% static 'img/game_zombieview.png' %}" width=800, height=475 usemap="#main_map"/>
+                    <map name="main_map" id="main_map">
+                        <area href="javascript:void()" shape="rect" coords="211, 413, 352, 448" onclick="submitAction('FIGHT', '')" />
+                        <area href="javascript:void()" shape="rect" coords="442, 413, 583, 448" onclick="submitAction('RUN', '')" />
+                    </map>
                 {% else %}
                     Something went wrong
                 {% endif %}
