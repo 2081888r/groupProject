@@ -22,7 +22,7 @@ def getUser(request, username):
 
 def index(request):
     if(request.user.is_authenticated()):
-        return render(request,'zombie/main.html', {'username':request.user.username})
+        return render(request,'zombie/index.html', {'username':request.user.username})
     else:
         return render(request,'zombie/index.html', {})
 
@@ -41,9 +41,11 @@ def user_login(request):
             else:
                 return HttpResponse("Your Zombie account is disabled.")
         else:
-            return render(request, 'zombie/index.html', {'login_errors':True});
+            # Bad login details were provided. So we can't log the user in.
+            print "Invalid login details: {0}, {1}".format(username, password)
+            return HttpResponse("Invalid login details supplied.")
     else:
-        return redirect("/zombie/")
+        return render(request,'registration/login.html', {})
     
 @login_required
 def user_logout(request):
@@ -51,45 +53,24 @@ def user_logout(request):
     return HttpResponseRedirect('/zombie/')
 
 def register(request):
+    registered = False
+
     if request.method == 'POST':
-        any_errors = False #true if any error occured
-        errors = [False, False, False, False] #lists errors (username_taken, username_invalid, email_invalid, passwords_mismatch)
-        
-        username = request.POST.get('username')
-        first_name = request.POST.get('first_name')
-        last_name = request.POST.get('last_name')
-        email = request.POST.get('email')
-        password1 = request.POST.get('password1')
-        password2 = request.POST.get('password2')
-        
-        if(User.objects.filter(username=username).exists()): #if username is taken
-            errors[0] = True
-            any_errors = True
-        if(not re.compile(r'^[a-z0-9]+$').match(username)): #if username does not contain only lowercase letters and numbers
-            errors[1] = True
-            any_errors = True;
-        if(not re.compile(r'^[a-zA-Z0-9\!\#\$\%\&\'\*\+\-\/\=\?\^\_\`\{\|\}\~\.]+@[a-zA-Z\-\.]+\.[a-zA-Z\-\.]+$').match(email)): #if email is invalid (see https://en.wikipedia.org/wiki/Email_address#Syntax)
-            errors[2] = True
-            any_errors = True
-        if(password1 != password2): #if passwords don't match
-            errors[3] = True
-            any_errors = True
-        
-        if(any_errors):
-            return render(request, 'zombie/index.html', {'errors':errors, 'registration_errors':any_errors});
+        user_form = UserForm(data=request.POST)
+
+        if user_form.is_valid():
+            user = user_form.save()
+            user.set_password(user.password)
+            user.save()
+            registered = True
         else:
-            user = User.objects.create_user(username)
-            user.first_name = first_name
-            user.last_name = last_name
-            user.email = email
-            user.set_password(password1)
-            user.save();
-            
-            user_profile = UserProfile.objects.create(user=user)
-            user_profile.save();
-            return render(request,'zombie/index.html', {'registration_successful':True})
+            print user_form.errors
+
     else:
-        return redirect("/zombie/")
+        user_form = UserForm()
+
+    return render(request, 'registration/registration_form.html', {'user_form': user_form, 'registered': registered} )
+
 
 def leaderboard(request):
     if request.method == 'POST':

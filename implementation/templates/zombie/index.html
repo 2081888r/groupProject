@@ -23,10 +23,10 @@
                     <ul class="nav navbar-nav navbar-right">
                         {% if user.is_authenticated %}
                         <p class="navbar-text navbar-left" style="color: #595959">Signed in as <a href="/zombie/profile/{{user.get_username}}" class="navbar-link" style="color: #595959"><b>{{user.username}}</b></a></p>
-                        <li><a href="{% url 'auth_logout' %}?next=/zombie/">Logout</a></li>
+                        <li><a href="{% url 'logout' %}?next=/zombie/">Logout</a></li>
                         {% else %}
                         <li><a href="{% url 'login' %}">Login</a></li>
-                        <li><a href="/accounts/register/">Register</a></li>
+                        <li><a href="{% url 'register' %}">Register</a></li>
                         {% endif %}
                     </ul>
                 </div>
