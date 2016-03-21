@@ -24,7 +24,7 @@
                 <div style="margin: 10px 0px 0px 10px;">
                     <span style="font-size: 24px;">Friends</span>
                     {% if friends|length > 4 %}<a href="/zombie/profile/{{ username }}/friends" >see all</a>{% endif %} <br />
-                    {% if user.username = username %}<a href="javascript:void()" onclick="">Add Friend</a>{% endif %}
+                    {% if user.username = username %}<a href="javascript:void()" onclick="add_friend()">Add Friend</a>{% endif %}
                 </div>
                 {% if friends.0 != null %}
                     <div id="friend_div_1" class="friend_divs">
@@ -190,6 +190,10 @@
             <input type="file" id="new_profile_pic" name="new_profile_pic" style="visibility: hidden" onchange="javascript:document.getElementById('new_profile_pic_form').submit();" />
             <input type="submit" style="visibility: hidden" />
         </form>
+        <form id="add_friend_form" action="/zombie/profile/{{ username }}/" method="POST" >
+            {% csrf_token %}
+            <input id="friend_username_input" type="hidden" name="friend_username" value="" />
+        </form>
         <script src="{% static 'js/profile_script.js' %}" type="text/javascript"></script>
         <script>
             {% if scores_sorted_by == 'days_survived' %}
@@ -201,6 +205,12 @@
             {% if scores_sorted_by == 'most_survivors' %}
                 document.getElementById('table_sort_button_3').style.visibility = "visible";
             {% endif %}
+            
+            function add_friend(){
+                var name = prompt("Please enter the username of the friend you would like to add: ", "");
+                document.getElementById("friend_username_input").value = name;
+                document.getElementById("add_friend_form").submit();
+            }
         </script>
     </body>
 </html>

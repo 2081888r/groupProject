@@ -137,6 +137,11 @@ def profile(request, username):
             if form.is_valid():
                 user_profile.avatar = form.cleaned_data['new_profile_pic']
                 user_profile.save()
+            
+            if request.POST.get("friend_username") is not None: #adding friend
+                friend_username = request.POST.get("friend_username")
+                friend_profile = UserProfile.objects.get(user=User.objects.get(username=friend_username))
+                user_profile.friends.add(friend_profile)
         else:
             scores = Score.objects.filter(user__exact=user_profile).order_by('-days_survived')
             scores_sorted_by = "days_survived"
