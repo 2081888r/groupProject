@@ -17,3 +17,5 @@ class UserProfileForm(forms.ModelForm):
         model = UserProfile
         fields = ('avatar',)
         
+class ImageUploadForm(forms.Form):
+    new_profile_pic = forms.ImageField()

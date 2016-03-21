@@ -14,6 +14,10 @@
                 <span>{{ first_name }} {{ last_name }}'s Badges</span>
                 <div id="grey_overlay_1" class="grey_overlay" onclick="retract_badge();"></div>
             </div>
+            <div id="back_button_div">
+                <a href="/zombie/"><img src="{% static 'img/profile_back.png' %}"/></a> 
+                <div id="grey_overlay_3" class="grey_overlay" onclick="retract_badge();"></div>
+            </div>
             <div id="badge_area">
                 <div class="badge_divs" id="badge_div_1">
                     {% if killer_badge_unlocked %}

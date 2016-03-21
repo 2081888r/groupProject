@@ -13,13 +13,18 @@
             <div id="profile_name_div">
                 <span>{{ first_name }} {{ last_name }}</span>
             </div>
+            <div id="back_button_div">
+                <a href="/zombie/"><img src="{% static 'img/profile_back.png' %}"/></a>
+            </div>
             <div id="profile_image_div">
                 <img src="{% if user_avatar %}{{ user_avatar.url }}{% else %}{% static 'img/blank_profile_picture.png' %}{% endif %}" width=180 height=180 />
+                {% if user.username = username %}<a href="javascript:void()"><label for="new_profile_pic" >Edit Image</label></a>{% endif %}
             </div>
             <div id="friends_div">
                 <div style="margin: 10px 0px 0px 10px;">
                     <span style="font-size: 24px;">Friends</span>
-                    {% if friends|length > 4 %}<a href="/zombie/profile/{{ username }}/friends" >see all</a>{% endif %}
+                    {% if friends|length > 4 %}<a href="/zombie/profile/{{ username }}/friends" >see all</a>{% endif %} <br />
+                    {% if user.username = username %}<a href="javascript:void()" onclick="">Add Friend</a>{% endif %}
                 </div>
                 {% if friends.0 != null %}
                     <div id="friend_div_1" class="friend_divs">
@@ -180,6 +185,11 @@
                 {% endif %}
             </div>
         </div>
+        <form id="new_profile_pic_form" action="/zombie/profile/{{ username }}/" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="file" id="new_profile_pic" name="new_profile_pic" style="visibility: hidden" onchange="javascript:document.getElementById('new_profile_pic_form').submit();" />
+            <input type="submit" style="visibility: hidden" />
+        </form>
         <script src="{% static 'js/profile_script.js' %}" type="text/javascript"></script>
         <script>
             {% if scores_sorted_by == 'days_survived' %}
@@ -190,7 +200,7 @@
             {% endif %} 
             {% if scores_sorted_by == 'most_survivors' %}
                 document.getElementById('table_sort_button_3').style.visibility = "visible";
-            {% endif %} 
+            {% endif %}
         </script>
     </body>
 </html>

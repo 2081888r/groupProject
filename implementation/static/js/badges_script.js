@@ -17,6 +17,8 @@ function expand_badge(i){
     document.getElementById("grey_overlay_1").style.backgroundColor = "rgba(1, 1, 1, 0.8)";
     document.getElementById("grey_overlay_2").style.visibility = "visible";
     document.getElementById("grey_overlay_2").style.backgroundColor = "rgba(1, 1, 1, 0.8)";
+    document.getElementById("grey_overlay_3").style.visibility = "visible";
+    document.getElementById("grey_overlay_3").style.backgroundColor = "rgba(1, 1, 1, 0.8)";
     
     original_visibility = expanded_badge_div.style.visibility;
     original_left       = expanded_badge_div.style.left;
@@ -43,6 +45,7 @@ function retract_badge(){
 
     document.getElementById("grey_overlay_1").style.backgroundColor = "rgba(1, 1, 1, 0)";
     document.getElementById("grey_overlay_2").style.backgroundColor = "rgba(1, 1, 1, 0)";
+    document.getElementById("grey_overlay_3").style.backgroundColor = "rgba(1, 1, 1, 0)";
     
     expanded_badge_div.style.left       = original_left;
     expanded_badge_div.style.top        = original_top;
@@ -56,5 +59,6 @@ function retract_badge(){
                     badge_div.style.visibility = "visible";
                         document.getElementById("grey_overlay_1").style.visibility = "hidden";
                         document.getElementById("grey_overlay_2").style.visibility = "hidden";
+                        document.getElementById("grey_overlay_3").style.visibility = "hidden";
                 }, 400);
 }

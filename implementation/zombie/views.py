@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponse
-from zombie.forms import UserForm, UserProfileForm
+from zombie.forms import UserForm, UserProfileForm, ImageUploadForm
 from django.contrib.auth.models import User
 from zombie.models import UserProfile, Score
 import re
@@ -132,6 +132,11 @@ def profile(request, username):
             else:
                 scores = Score.objects.filter(user__exact=user_profile).order_by('-days_survived')
                 scores_sorted_by = "days_survived"
+            
+            form = ImageUploadForm(request.POST, request.FILES)
+            if form.is_valid():
+                user_profile.avatar = form.cleaned_data['new_profile_pic']
+                user_profile.save()
         else:
             scores = Score.objects.filter(user__exact=user_profile).order_by('-days_survived')
             scores_sorted_by = "days_survived"
@@ -258,25 +263,3 @@ def game(request):
     t = str(int(((84-g.time_left)/6)+10))+":"+str(int((84-g.time_left)%6))+"0";
     
     return render(request, 'zombie/game.html', {'game':g, 'time':t, 'new_day':new_day})
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
