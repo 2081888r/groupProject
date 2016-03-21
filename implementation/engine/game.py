@@ -4,15 +4,25 @@ import random
 from streetfactory import StreetFactory
 from copy import deepcopy
 
-MAX_MOVE_TIME = 10
-MAX_SEARCH_TIME = 5
-WAIT_TIME = 20
-FIGHT_TIME = 5
-RUN_TIME = 2
-ENTER_TIME = 1
-EXIT_TIME = 1
+MAX_MOVE_TIME = 0
+MAX_SEARCH_TIME = 3
+WAIT_TIME = 3
+FIGHT_TIME = 6
+RUN_TIME = 3
+ENTER_TIME = 3
+EXIT_TIME = 3
 NONE_TIME = 0
-LENGTH_OF_DAY = 100
+LENGTH_OF_DAY = 84
+
+#MAX_MOVE_TIME = 10
+#MAX_SEARCH_TIME = 5
+#WAIT_TIME = 20
+#FIGHT_TIME = 5
+#RUN_TIME = 2
+#ENTER_TIME = 1
+#EXIT_TIME = 1
+#NONE_TIME = 0
+#LENGTH_OF_DAY = 100
 
 class PlayerState(object):
 
@@ -22,6 +32,7 @@ class PlayerState(object):
         self.food = 3
         self.kills = 0
         self.days = 0
+        self.max_party = 0;
 
     @property
     def move_time(self):
@@ -59,7 +70,9 @@ class Game(object):
         self.update_state.ammo = 0
         self.update_state.kills = 0
         self.update_state.party = 0
-
+        
+        self.entry_log = [];
+        
         self.player_state = PlayerState()
 
         self._time_left = LENGTH_OF_DAY
@@ -79,6 +92,18 @@ class Game(object):
 
 
     def take_turn(self, action, value=None):
+        if action == "MOVE":
+            self.entry_log.append("Entered building " + str(value+1))
+        if action == "WAIT":
+            self.entry_log.append("Waited")
+        if action == "SEARCH":
+            self.entry_log.append("Searched Room " + str(value+1))
+        if action == "EXIT":
+            self.entry_log.append("Exited building")
+        if action == "FIGHT":
+            self.entry_log.append("Fought a zombie")
+        if action == "RUN":
+            self.entry_log.append("Ran from a zombie")
 
         def diff_state(state_a, state_b):
             state = PlayerState()

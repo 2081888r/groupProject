@@ -23,7 +23,9 @@
                     {{ game.player_state.party }}
                 </div>
                 <div id="top_panel_time">
-                    14:33
+                    Day {{ game.player_state.days }} <br />
+                    {{ time }} <br />
+                    <a href="javascript:void()" onclick="submitAction('WAIT', '')" >wait</a>
                 </div>
             </div>
             <div id="bottom_panel">
@@ -36,8 +38,12 @@
                         Oh no! Zombies! do you want to <a href="javascript:void()" onclick="submitAction('FIGHT', '')" >fight</a> or <a href="javascript:void()" onclick="submitAction('RUN', '')" >run</a>?
                     {% endif %}
                 </div>
+                <div style="position:absolute; left:0px; padding: 7px 0px 0px 5px">
+                    <a href="/zombie/">Go Back</a>
+                </div>
             </div>
             <div id="main">
+                
                 
                 
                 {% if game.game_state == "STREET" %}
@@ -97,40 +103,11 @@
                 </div>
             </div>
             <div id="left_panel">
-                <div id="left_panel_party">
-                    <table id="left_panel_party_table">
-                        <tr>
-                            <th>Name</th>
-                            <th>S</th>
-                            <th>A</th>
-                        </tr>
-                        <tr>
-                            <td>John Doe</td>
-                            <td align="center">3</td>
-                            <td align="center">7</td>
-                        </tr>
-                        <tr>
-                            <td>John Doe</td>
-                            <td align="center">3</td>
-                            <td align="center">7</td>
-                        </tr>
-                        <tr>
-                            <td>John Doe</td>
-                            <td align="center">3</td>
-                            <td align="center">7</td>
-                        </tr>
-                        <tr>
-                            <td>John Doe</td>
-                            <td align="center">3</td>
-                            <td align="center">7</td>
-                        </tr>
-                    </table>
-                </div>
                 <div id="left_panel_log">
                     <table id="left_panel_log_table">
-                        <tr><td>12:54 &nbsp First log entry</td></tr>
-                        <tr><td>13:30 &nbsp Second log entry</td></tr>
-                        <tr><td>13:45 &nbsp Third log entry</td></tr>
+                        {% for entry in game.entry_log %}
+                            <tr><td>{{ entry }}</td></tr>
+                        {% endfor %}
                     </table>
                 </div>
             </div>
@@ -146,25 +123,25 @@
                 alert("You've killed {{ game.update_state.kills }} zombies.");
             {% endif %}
             {% if game.update_state.party < 0 %}
-                alert("You've lost {{ game.update_state.party }} people.");
+                alert("You've lost {{ game.update_state.party|stringformat:"+d"|slice:"1:" }} people.");
             {% endif %}
             {% if game.update_state.party > 0 %}
                 alert("You've gained {{ game.update_state.party }} people.");
             {% endif %}
             {% if game.update_state.ammo < 0 %}
-                alert("You've lost {{ game.update_state.ammo }} ammo.");
+                alert("You've lost {{ game.update_state.ammo|stringformat:"+d"|slice:"1:" }} ammo.");
             {% endif %}
             {% if game.update_state.ammo > 0 %}
                 alert("You've gained {{ game.update_state.ammo }} ammo.");
             {% endif %}
             {% if game.update_state.food < 0 %}
-                alert("You've lost {{ game.update_state.food }} food.");
+                alert("You've lost {{ game.update_state.food|stringformat:"+d"|slice:"1:" }} food.");
             {% endif %}
             {% if game.update_state.food > 0 %}
                 alert("You've gained {{ game.update_state.food }} food.");
             {% endif %}
-            {% if game.update_state.days > 0 %}
-                alert("A new day has dawned.");
+            {% if new_day %}
+                alert("A new day has dawned. You've moved to a new street.");
             {% endif %}
         </script>
     </body>

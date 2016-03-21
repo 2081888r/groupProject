@@ -198,20 +198,29 @@ def badges(request, username):
 
 
 def game(request):
-    if not os.path.isfile('gameData/'+request.user.username+'.txt'): #new game
+    if request.POST.get("is_new_game") == "yes":
         g = Game()
-    else: #continue game
-        f = open('gameData/'+request.user.username+'.txt', 'rb')
-        g = dill.load(f)
+    else:
+        if not os.path.isfile('gameData/'+request.user.username+'.txt'): #new game
+            g = Game()
+        else: #continue game
+            f = open('gameData/'+request.user.username+'.txt', 'rb')
+            g = dill.load(f)
+            f.close()
+    
     
     if g.game_state is None: #game is uninitialised
         g.start_new_day()
     
-    if g.is_day_over():
-        g.start_new_day()
+    #update max_party
+    if g.update_state.party >0:
+        g.player_state.max_party += g.update_state.party
     
-    if g.is_game_over():
-        return redirect("/zombie/")
+    new_day = False
+    
+    if g.is_day_over():
+        new_day = True
+        g.start_new_day()
     
     if request.method == 'POST':
         print "-------------------------"
@@ -229,12 +238,26 @@ def game(request):
         else:
             g.take_turn(action)
     
+    if g.is_game_over():
+        days_survived = g.player_state.days
+        zombie_kills = g.player_state.kills
+        most_survivors = g.player_state.max_party
+        user_prof = UserProfile.objects.get(user=request.user)
+        
+        score = Score.objects.create(user=user_prof, zombie_kills=zombie_kills, most_survivors=most_survivors, days_survived=days_survived)
+        score.save()
+        
+        os.remove('gameData/'+request.user.username+'.txt')
+        
+        return render(request, "zombie/gamedeath.html", {'days_survived':days_survived, 'zombie_kills':zombie_kills, 'most_survivors':most_survivors})
+    
     f = open('gameData/'+request.user.username+'.txt', 'wb')
     dill.dump(g, f)
+    f.close()
     
-    return render(request, 'zombie/game.html', {'game':g})
-
-
+    t = str(int(((84-g.time_left)/6)+10))+":"+str(int((84-g.time_left)%6))+"0";
+    
+    return render(request, 'zombie/game.html', {'game':g, 'time':t, 'new_day':new_day})
 
 
 

@@ -21,7 +21,7 @@ function open_left_panel(){
     document.getElementById("left_panel").style.left = "2px";
     
     window.setTimeout(function(){
-        document.getElementById("left_panel_arrow_image").style.transform = "scale(-1, 1)";
+        document.getElementById("left_panel_arrow_image").style.transform = "scale(-1, -1)";
     }, 750);
 }
 function close_left_panel(){
